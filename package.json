@@ -1,0 +1,17 @@
+{
+  "name": "training-bot",
+  "version": "0.1.0",
+  "private": true,
+  "description": "研習小秘書 LINE bot（Google Apps Script）：研習公告 → Gemini 抽取 → Google 日曆＋LINE 提醒",
+  "scripts": {
+    "login": "clasp login",
+    "create": "clasp create-script --type standalone --title \"研習小秘書 training-bot\" --rootDir src",
+    "push": "clasp push --force",
+    "open": "clasp open-script",
+    "deploy:first": "clasp create-deployment --description \"training-bot\"",
+    "deployments": "clasp list-deployments"
+  },
+  "devDependencies": {
+    "@google/clasp": "^3.4.1"
+  }
+}
