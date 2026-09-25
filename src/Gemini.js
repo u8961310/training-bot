@@ -24,7 +24,7 @@ const EXTRACT_SCHEMA = {
     mode: { type: 'string', enum: ['onsite', 'online', 'hybrid', 'unknown'] },
     location: { type: 'string', nullable: true, description: '實體地點含教室' },
     online_url: { type: 'string', nullable: true, description: '會議或直播網址，原文要有才填' },
-    register_url: { type: 'string', nullable: true },
+    register_url: { type: 'string', nullable: true, description: '原文明確標示為報名的網址' },
     register_deadline: { type: 'string', nullable: true, description: 'YYYY-MM-DD' },
     hours: { type: 'number', nullable: true, description: '研習時數' },
     source: { type: 'string', nullable: true, description: '公文字號、貼文網址或信件主旨' },
@@ -44,6 +44,7 @@ function buildPrompt_() {
     '2. 多天或多場次，每場各一筆 sessions。',
     '3. 有實體地點又有線上連結 → hybrid；只有直播／視訊 → online。',
     '4. 網址只能照抄原文出現的，不可編造。',
+    '   register_url 只在原文明確寫「報名」且附該網址時才填；貼文本身的網址放 source，不是報名網址。',
     '5. 需要使用者自己處理的事（連結另外公布、需先報名等）寫進 notes，用繁體中文。',
     '6. 不是研習相關內容 → is_training=false，其他欄位可為 null。',
   ].join('\n');

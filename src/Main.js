@@ -68,6 +68,8 @@ function handleAnnouncement_(ev, userId, input) {
   if (!data.is_training || !data.sessions || data.sessions.length === 0) {
     return lineReply(ev.replyToken, textMsg('🤔 看不出研習的日期時間。\n如果是研習公告，請改傳含日期的截圖或文字。'));
   }
+  // 保險：報名網址跟來源一樣，多半是 AI 把貼文網址誤當報名連結
+  if (data.register_url && data.register_url === data.source) data.register_url = null;
   const id = saveDraft(data, userId);
   data.id = id;
   lineReply(ev.replyToken, confirmCard_(data));
