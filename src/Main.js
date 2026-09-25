@@ -3,7 +3,7 @@
  *
  * 流程：傳文字／截圖 → Gemini 抽取 → 確認卡片 → ✅ 寫進「研習」日曆
  * 指令：本週、下一場、時數、說明
- * 每日早報：setup() 建觸發器，有事才推播
+ * 每日早報：setup() 建觸發器，每天推一則（含假日）
  */
 
 // ---------- Webhook 入口 ----------
@@ -181,7 +181,7 @@ const COMMANDS = {
     '・本週：未來 7 天的研習',
     '・下一場：最近一場研習',
     '・時數：本學年已入曆的研習時數',
-    '・每天 ' + cfg('DIGEST_HOUR') + ':' + ('0' + cfg('DIGEST_MINUTE')).slice(-2) + ' 有研習或報名快截止才會推播',
+    '・每天 ' + cfg('DIGEST_HOUR') + ':' + ('0' + cfg('DIGEST_MINUTE')).slice(-2) + ' 推播研習早報（含假日）',
     'FB 等要登入的網址我打不開，請貼文字或截圖。',
   ].join('\n')),
 };
@@ -239,10 +239,16 @@ function dailyDigest() {
     .getEvents(todayStart, new Date(todayStart.getTime() + (cfgNum('DEADLINE_LOOKAHEAD_DAYS') + 1) * dayMs))
     .filter((e) => e.getTitle().indexOf('⏰ 報名截止') === 0);
 
-  // 沒事就不推，省額度
-  if (today.length + tomorrow.length + deadlines.length === 0) return;
+  const empty = today.length + tomorrow.length + deadlines.length === 0;
+  // 預設每天都推（含假日，約 30 則／月）；想省額度可把 DIGEST_SKIP_EMPTY 設 true
+  if (empty && cfg('DIGEST_SKIP_EMPTY') === 'true') return;
 
   const lines = ['☀️ 研習早報 ' + Utilities.formatDate(now, TZ, 'M/d')];
+  if (empty) {
+    lines.push('', '今天、明天都沒有研習，也沒有快截止的報名。');
+    const upcoming = trainingEvents_(new Date(todayStart.getTime() + 2 * dayMs), new Date(todayStart.getTime() + 30 * dayMs));
+    lines.push(upcoming.length ? '\n⏭️ 最近一場\n' + eventLine_(upcoming[0]) : '未來 30 天也還沒排研習。');
+  }
   if (today.length) lines.push('', '【今天】', ...today.map(eventLine_));
   if (tomorrow.length) lines.push('', '【明天】', ...tomorrow.map(eventLine_));
   if (deadlines.length) {

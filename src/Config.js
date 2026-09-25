@@ -13,6 +13,7 @@
  *   REMINDER_MIN               日曆跳通知提前幾分鐘
  *   DEADLINE_LOOKAHEAD_DAYS    早報提醒幾天內截止的報名
  *   PUSH_QUOTA_GUARD           當月推播用量超過這個數字就改寄 Email
+ *   DIGEST_SKIP_EMPTY          true＝沒研習的日子不推早報（預設 false，每天都推）
  *   NOTIFY_EMAIL               備援 Email（預設部署者本人）
  *
  * setup() 自動寫入：
@@ -27,6 +28,7 @@ const DEFAULTS = {
   REMINDER_MIN: '30',
   DEADLINE_LOOKAHEAD_DAYS: '3',
   PUSH_QUOTA_GUARD: '150',
+  DIGEST_SKIP_EMPTY: 'false',
   NOTIFY_EMAIL: '',
 };
 

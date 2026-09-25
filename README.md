@@ -1,7 +1,7 @@
 # 研習小秘書 training-bot
 
 把研習公告（文字或截圖）傳給 LINE bot → Gemini 抽出時間、地點、線上網址 → 確認卡片 → 寫進 Google「研習」日曆。
-每天 07:30 有研習或報名快截止才推播一則早報。
+每天 07:30（台北時間，含假日）推播一則早報。
 
 全免費：Google Apps Script（主機＋日曆＋試算表＋排程）、LINE 輕用量方案、Gemini 免費層。
 
@@ -12,7 +12,7 @@ LINE ──webhook──▶ GAS doPost ──▶ Gemini（JSON schema 抽取）
                      │
                      ├─ reply 確認卡片（免費）
                      ├─ ✅ → CalendarApp「研習」日曆 ＋ 試算表記錄
-                     └─ 時間觸發器 07:30 → dailyDigest → push（有事才推）
+                     └─ 時間觸發器 07:30 → dailyDigest → push（每天一則）
 ```
 
 | 檔案 | 內容 |
@@ -25,7 +25,7 @@ LINE ──webhook──▶ GAS doPost ──▶ Gemini（JSON schema 抽取）
 
 ## 推播額度
 
-台灣輕用量每月 200 則 push，**reply 不計**。本 bot 只有早報用 push，且沒事不推，
+台灣輕用量每月 200 則 push，**reply 不計**。本 bot 只有早報用 push，每天一則約 30 則／月（`DIGEST_SKIP_EMPTY=true` 可改成沒事不推），
 每次推播前查 `/v2/bot/message/quota/consumption`，超過 `PUSH_QUOTA_GUARD`（預設 150）改寄 Email。
 開課前提醒交給 Google 日曆內建通知（`REMINDER_MIN`，預設 30 分）。
 
