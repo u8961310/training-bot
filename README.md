@@ -54,8 +54,9 @@ GAS 的 `doPost` 拿不到 HTTP header，**無法驗 `X-Line-Signature`**。
 ## 改版
 
 ```
-npm run push
-npx clasp update-deployment <deploymentId>   # 網址不變
+npm run redeploy    # push ＋ update-deployment，讀 .deploy-id（不進 git），網址不變
 ```
+
+首次部署後把 deploymentId 存進 `.deploy-id`（一行）。
 
 只 push 不 redeploy 的話，webhook 仍跑舊版本。

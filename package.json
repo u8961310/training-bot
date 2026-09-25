@@ -9,7 +9,8 @@
     "push": "clasp push --force",
     "open": "clasp open-script",
     "deploy:first": "clasp create-deployment --description \"training-bot\"",
-    "deployments": "clasp list-deployments"
+    "deployments": "clasp list-deployments",
+    "redeploy": "clasp push --force && node -e \"require('child_process').execSync('npx clasp update-deployment ' + require('fs').readFileSync('.deploy-id','utf8').trim(), {stdio:'inherit'})\""
   },
   "devDependencies": {
     "@google/clasp": "^3.4.1"
