@@ -12,7 +12,7 @@
     "deployments": "clasp list-deployments",
     "bundle": "node scripts/bundle.js",
     "bundle:check": "node scripts/bundle.js --check",
-    "redeploy": "npm run bundle && clasp push --force && node -e \"require('child_process').execSync('npx clasp update-deployment ' + require('fs').readFileSync('.deploy-id','utf8').trim(), {stdio:'inherit'})\""
+    "redeploy": "node scripts/redeploy.js"
   },
   "devDependencies": {
     "@google/clasp": "^3.4.1"

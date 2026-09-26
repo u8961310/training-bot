@@ -46,10 +46,14 @@ function lineLoading(userId, seconds) {
   });
 }
 
+/** 取得使用者傳來的圖片或檔案內容（Blob） */
+function lineGetBlob(messageId) {
+  return lineFetch_(LINE_DATA_API + '/message/' + messageId + '/content', 'get').getBlob();
+}
+
 /** 取得使用者傳來的圖片，回傳 { mimeType, base64 } */
 function lineGetImage(messageId) {
-  const res = lineFetch_(LINE_DATA_API + '/message/' + messageId + '/content', 'get');
-  const blob = res.getBlob();
+  const blob = lineGetBlob(messageId);
   return {
     mimeType: blob.getContentType() || 'image/jpeg',
     base64: Utilities.base64Encode(blob.getBytes()),

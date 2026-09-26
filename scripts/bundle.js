@@ -10,7 +10,7 @@ const fs = require('fs');
 const path = require('path');
 
 const ROOT = path.join(__dirname, '..');
-const FILES = ['Config', 'Line', 'Gemini', 'Store', 'Main'];
+const FILES = ['Config', 'Line', 'Gemini', 'Store', 'Handout', 'Main'];
 const OUT = path.join(ROOT, 'docs', 'training-bot.gs');
 
 const bundled = FILES.map((name) => {

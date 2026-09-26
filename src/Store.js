@@ -5,7 +5,7 @@
 const COLS = [
   'id', 'created_at', 'status', 'title', 'organizer', 'mode', 'location', 'online_url',
   'register_url', 'register_deadline', 'hours', 'source', 'notes', 'confidence',
-  'sessions_json', 'event_ids', 'user_id',
+  'sessions_json', 'event_ids', 'user_id', 'handout_folder',
 ];
 
 function sheet_() {

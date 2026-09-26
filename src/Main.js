@@ -46,12 +46,15 @@ function handleEvent_(ev) {
   if (msg.type === 'text') {
     const cmd = msg.text.trim();
     if (COMMANDS[cmd]) return lineReply(ev.replyToken, COMMANDS[cmd]());
+    if (/^講義/.test(cmd) && cmd.length <= 30) return lineReply(ev.replyToken, textMsg(handoutSearch_(cmd.slice(2))));
+    if (isOnlyUrl_(cmd)) return handleHandoutLink_(ev, cmd);
     return handleAnnouncement_(ev, userId, { text: msg.text });
   }
   if (msg.type === 'image') {
     return handleAnnouncement_(ev, userId, { image: lineGetImage(msg.id) });
   }
-  lineReply(ev.replyToken, textMsg('請傳研習公告的文字或截圖；輸入「說明」看用法。'));
+  if (msg.type === 'file') return handleHandoutFile_(ev, msg);
+  lineReply(ev.replyToken, textMsg('請傳研習公告的文字或截圖、或研習講義檔；輸入「說明」看用法。'));
 }
 
 // ---------- 抽取 → 確認卡片 ----------
@@ -81,6 +84,7 @@ function handlePostback_(ev, userId) {
     const [k, v] = kv.split('=');
     p[k] = decodeURIComponent(v || '');
   });
+  if (String(p.action).indexOf('handout') === 0) return handleHandoutPostback_(ev, userId, p);
   const found = findRecord(p.id);
   if (!found) return lineReply(ev.replyToken, textMsg('找不到這筆研習（可能已刪除）。'));
   const rec = found.record;
@@ -181,6 +185,8 @@ const COMMANDS = {
     '・本週：未來 7 天的研習',
     '・下一場：最近一場研習',
     '・時數：本學年已入曆的研習時數',
+    '・研習後傳講義檔或連結 → 選是哪一場，存進雲端「研習講義」資料夾',
+    '・講義 關鍵字：找以前的講義（只打「講義」列最近 5 場）',
     '・每天 ' + cfg('DIGEST_HOUR') + ':' + ('0' + cfg('DIGEST_MINUTE')).slice(-2) + ' 檢查，當天有研習才推播（含假日）',
     'FB 等要登入的網址我打不開，請貼文字或截圖。',
   ].join('\n')),
@@ -277,6 +283,17 @@ function setup() {
     sh.getRange('A:A').setNumberFormat('@');
     setCfg('SHEET_ID', ss.getId());
     console.log('已建立試算表：' + ss.getUrl());
+  }
+  // 舊版建的試算表少了後來加的欄位，補上表頭
+  const sh = sheet_();
+  if (sh.getLastColumn() < COLS.length) {
+    sh.getRange(1, 1, 1, COLS.length).setValues([COLS]);
+  }
+  if (!cfg('HANDOUT_FOLDER_ID')) {
+    const folder = DriveApp.createFolder(HANDOUT_ROOT_NAME);
+    folder.createFolder(HANDOUT_INBOX_NAME);
+    setCfg('HANDOUT_FOLDER_ID', folder.getId());
+    console.log('已建立講義資料夾：' + folder.getUrl());
   }
   setupTrigger();
   const missing = ['LINE_CHANNEL_ACCESS_TOKEN', 'GEMINI_API_KEY', 'ALLOWED_USER_IDS'].filter((k) => !cfg(k));

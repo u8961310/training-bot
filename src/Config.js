@@ -17,6 +17,7 @@
  * setup() 自動寫入：
  *   CALENDAR_ID                「研習」日曆
  *   SHEET_ID                   研習紀錄試算表
+ *   HANDOUT_FOLDER_ID          雲端硬碟「研習講義」資料夾
  */
 const DEFAULTS = {
   GEMINI_MODEL: 'gemini-3.5-flash-lite',
