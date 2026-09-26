@@ -46,6 +46,7 @@ code,.kbd{font-family:Consolas,"Noto Sans Mono",monospace;background:var(--card)
 .map div{border-radius:12px;padding:10px 12px;background:var(--brand-soft);font-size:13px;line-height:1.45}
 .map b{display:block;font-size:15px;color:var(--brand-deep)}
 .map span{color:var(--muted)}
+.map.five{grid-template-columns:repeat(5,1fr)}
 
 /* 關卡標題 */
 .part{margin:34px 0 14px;display:flex;align-items:center;gap:14px;border-bottom:3px solid var(--brand);padding-bottom:8px}
@@ -68,6 +69,8 @@ code,.kbd{font-family:Consolas,"Noto Sans Mono",monospace;background:var(--card)
 .note.tip{background:var(--tip-soft)}
 .note.tip::before{content:"💡 小提醒　";font-weight:bold;color:var(--tip)}
 .note.warn{background:var(--warn-soft)}
+.note.ai{background:var(--accent-soft)}
+.note.ai::before{content:"🤖 問 Gemini　";font-weight:bold;color:#174ea6}
 .note.warn::before{content:"⚠️ 注意　";font-weight:bold;color:var(--warn)}
 
 /* 畫面示意 */
@@ -93,11 +96,24 @@ code,.kbd{font-family:Consolas,"Noto Sans Mono",monospace;background:var(--card)
 .cmd{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:8px 0}
 .cmd div{border:2px solid var(--brand);border-radius:12px;padding:8px 10px;text-align:center;font-size:13px;line-height:1.4}
 .cmd b{display:block;font-size:17px;color:var(--brand-deep)}
+/* 提示詞範本 */
+.prompt{border:1.5px solid var(--accent);border-radius:12px;margin:10px 0;overflow:hidden;background:#fff}
+.prompt .ph{background:var(--accent-soft);color:#174ea6;font-weight:bold;font-size:13.5px;padding:5px 12px}
+.prompt pre{margin:0;padding:10px 14px;white-space:pre-wrap;word-break:break-word;font-family:"Noto Sans TC","Microsoft JhengHei",sans-serif;font-size:14px;line-height:1.7}
+.fillin{font-style:normal;background:var(--tip-soft);color:var(--tip);border-radius:4px;padding:0 3px}
+.vs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:8px 0}
+.vs div{border-radius:12px;padding:8px 12px;font-size:14px;line-height:1.6}
+.vs .bad{background:var(--warn-soft)}
+.vs .good{background:var(--brand-soft)}
+.vs b{display:block}
+.vs span{color:var(--muted)}
 footer{margin-top:30px;color:var(--muted);font-size:12px;border-top:1px solid var(--line);padding-top:8px}
 .fill{display:inline-block;min-width:220px;border-bottom:1.5px solid var(--ink)}
 
 @media (max-width:640px){
   .goal,.prep,.map,.cmd{grid-template-columns:1fr 1fr}
+  .vs{grid-template-columns:1fr}
+  .map.five{grid-template-columns:1fr 1fr}
   .part{flex-wrap:wrap}
   .part .time{margin-left:0}
 }
@@ -107,7 +123,8 @@ footer{margin-top:30px;color:var(--muted);font-size:12px;border-top:1px solid va
   main{padding:0;max-width:none}
   .part{break-after:avoid}
   .part.newpage{break-before:page;margin-top:0}
-  .step,.note,.screen,.chat,.panel,.map,.faq tr,.cmd{break-inside:avoid}
+  .step,.note,.screen,.chat,.panel,.map,.faq tr,.cmd,.prompt,.vs,.keep{break-inside:avoid}
+  h3{break-after:avoid}
 }
 </style>
 </head>
@@ -146,7 +163,8 @@ footer{margin-top:30px;color:var(--muted);font-size:12px;border-top:1px solid va
 </div>
 
 <h3 style="margin:18px 0 0">今天的路線圖</h3>
-<div class="map">
+<div class="map five">
+  <div><b>第 0 關｜學會問</b>請 Gemini 寫程式、救火<br><span>提示詞・約 5 分</span></div>
   <div><b>第 1 關｜拿鑰匙</b>LINE 與 Gemini 各拿一把<br><span>步驟 1–3・約 15 分</span></div>
   <div><b>第 2 關｜搬進家具</b>把程式放進 Google<br><span>步驟 4–7・約 15 分</span></div>
   <div><b>第 3 關｜接上電話線</b>讓 LINE 找得到它<br><span>步驟 8–11・約 15 分</span></div>
@@ -154,6 +172,104 @@ footer{margin-top:30px;color:var(--muted);font-size:12px;border-top:1px solid va
 </div>
 <div class="note tip">打個比方：小秘書要上班，需要一支<strong>電話</strong>（LINE 官方帳號）、一顆<strong>腦袋</strong>（Gemini AI）、一張<strong>辦公桌</strong>（Google Apps Script）。今天就是依序把這三樣準備好，再把電話線接到桌上。</div>
 <div class="note warn">等一下拿到的兩把「鑰匙」（Token、API key）就像家裡鑰匙：<strong>不要拍照上傳、不要貼到群組</strong>。整個過程只貼在你自己的 Google 專案裡。</div>
+
+<!-- ================= 第 0 關 ================= -->
+<div class="part newpage"><span class="tag">第 0 關</span><h2>學會問：請 Gemini 當你的程式小老師</h2><span class="time">約 5 分鐘</span></div>
+<p class="part-intro">等一下的 Apps Script（GAS）畫面都是程式碼，看不懂很正常。這一關先學會怎麼請 Gemini 寫程式、解釋程式、幫忙除錯；後面關卡看到 <strong>🤖 問 Gemini</strong>，就是提醒你這時可以拿哪一段提示詞來用。</p>
+
+<div class="step">
+  <div class="num">0</div>
+  <div>
+    <h3>先開好 Gemini 分頁</h3>
+    <ol>
+      <li>Chrome 另開一個分頁到 <code>gemini.google.com</code>，用<strong>個人 Gmail</strong> 登入</li>
+      <li>這個分頁一直開著，等一下哪一步看不懂，就切過來問</li>
+    </ol>
+    <div class="note tip">這裡是「跟 Gemini 聊天」的網頁；第 3 步的 <code>aistudio.google.com</code> 是幫小秘書「拿 API key」的地方，兩個不一樣。</div>
+  </div>
+</div>
+
+<h3 style="margin:14px 0 4px">好提示詞＝交代代課老師的四句話</h3>
+<div class="map">
+  <div><b>① 角色</b>你是誰<br><span>「你是很有耐心的 Apps Script 老師」</span></div>
+  <div><b>② 任務</b>要做什麼<br><span>「幫我寫一支每週寄信的程式」</span></div>
+  <div><b>③ 規則</b>哪些不能做<br><span>「我不會寫程式，不確定就說不確定」</span></div>
+  <div><b>④ 格式</b>交回什麼樣子<br><span>「完整程式碼＋一步一行的操作說明」</span></div>
+</div>
+<div class="vs">
+  <div class="bad"><b>❌ 太模糊</b>幫我寫一個提醒研習的程式。<br><span>→ 用什麼提醒？提醒誰？什麼時候？Gemini 只能自己猜，寫出來的多半不能用。</span></div>
+  <div class="good"><b>✅ 四句話都有</b>你是 Apps Script 老師，幫我寫一支每週日寄信給自己、列出下週研習的程式，我不會寫程式，請附上一步一步的操作說明。<br><span>→ 寫出來就能照著貼、照著跑。</span></div>
+</div>
+<div class="note tip">最重要的是第 ③ 句。AI 最常犯的錯是「很有自信地亂編」，先說清楚你的程度、要它不確定就講，能少掉一大半麻煩。</div>
+
+<div class="keep">
+<h3 style="margin:18px 0 4px">GAS 範本 A｜用提示詞產生一支 Apps Script</h3>
+<p>需求講清楚，再加上幾條「安全規則」，Gemini 就能幫你寫出能直接貼上執行的程式：</p>
+<div class="prompt"><div class="ph">✨ 產生 GAS 的提示詞</div><pre>你是 Google Apps Script 老師，我是不會寫程式的國小老師。請幫我寫一支 Apps Script：
+
+【我要做什麼】
+<span class="fillin">每週日晚上 8 點，寄一封 Email 給我自己，列出下週「研習」日曆裡的所有研習（日期、時間、標題）。下週沒有研習就不要寄。</span>
+
+【規則】
+1. 只用 Apps Script 內建功能（例如 CalendarApp、GmailApp），不要用需要 API key 的外部服務。
+2. 會改動的設定（日曆名稱、收件人、寄信時間）集中放在程式最上面，用中文註解說明。
+3. 另外寫一個 test 函式：只把結果印在執行記錄，不寄信、不刪除任何東西，讓我先測試。
+4. 每一段加中文註解。
+
+【交回格式】
+1. 完整程式碼（一整段，我會全選貼上）。
+2. 一步一行的操作說明：貼在哪、先執行哪個函式、怎麼設定每週自動執行的觸發器。
+3. 執行時 Google 會要求哪些權限，各是做什麼用的。</pre></div>
+</div>
+<div class="panel">
+  <h3>程式寫好之後，照後面關卡的做法跑起來</h3>
+  <ul>
+    <li><strong>貼進 Apps Script</strong>：新專案 → 全選刪掉預設程式 → 貼上 → 存檔，跟<strong>第 4 步</strong>一模一樣</li>
+    <li><strong>先跑 test 函式</strong>：下拉選單選 test 開頭的函式 → 執行 → 授權，跟<strong>第 6、7 步</strong>一樣</li>
+    <li><strong>有紅字</strong>：用範本 B 把錯誤貼回<strong>同一段對話</strong>，請它給修正後的完整新版</li>
+    <li><strong>想改功能</strong>：接著說「改成寄到另一個信箱」「多列出地點」，改好<strong>整段重貼</strong>，不要只貼一半</li>
+  </ul>
+</div>
+<div class="note warn">授權畫面看一眼它要的權限：只是寄信給自己，卻要「刪除雲端硬碟檔案」這種不相關的權限，就先別按允許，回去問 Gemini 為什麼需要。<strong>會刪除、會大量寄信給別人的程式，一定要先用 test 函式跑過。</strong></div>
+
+<div class="keep">
+<h3 style="margin:18px 0 4px">GAS 範本 B｜卡關了，貼錯誤訊息求救</h3>
+<div class="prompt"><div class="ph">🆘 執行出現紅字時用（第 6、7 步最常遇到）</div><pre>你是很有耐心的 Google Apps Script 老師，我是完全不會寫程式的國小老師。
+我在 Apps Script 執行「<span class="fillin">setup</span>」函式時出現下面的錯誤。
+
+請你：
+1. 用一句白話說明這個錯誤是什麼意思。
+2. 一步一行，告訴我在畫面上要點哪裡、改什麼。
+3. 除非真的必要，不要叫我改程式碼；要改的話，告訴我改哪一行、整行改成什麼。
+4. 不確定原因就直接說不確定，不要亂猜。
+
+---- 錯誤訊息 ----
+<span class="fillin">（把執行記錄裡的紅字整段複製貼上）</span></pre></div>
+</div>
+<div class="note warn">貼給 Gemini 之前看一眼：<strong>錯誤訊息裡如果有 Token、<code>AIza…</code> 開頭的 key，先刪掉</strong>再貼。鑰匙只放在指令碼屬性，不給任何人，AI 也一樣。</div>
+
+<div class="keep">
+<h3 style="margin:18px 0 4px">GAS 範本 C｜看懂一段程式在做什麼</h3>
+<div class="prompt"><div class="ph">🔍 好奇某個函式在做什麼時用</div><pre>你是 Google Apps Script 老師。下面是一段程式，請用國小老師聽得懂的話，
+分段說明每一塊在做什麼，每段不超過兩句。只要解釋，不要修改程式。
+
+<span class="fillin">（在 Apps Script 反白一個函式，例如 function setup() { … } 整段，複製貼上）</span></pre></div>
+</div>
+
+<div class="keep">
+<h3 style="margin:18px 0 4px">GAS 範本 D｜想改設定，先問該改哪裡</h3>
+<div class="prompt"><div class="ph">🛠️ 架好之後想調整時用</div><pre>你是 Google Apps Script 老師。下面是我這支程式最上面的設定說明。
+我想要<span class="fillin">把每天早報改到 6:30 發送</span>。
+
+請先讀設定說明再回答：
+1. 能不能只改「指令碼屬性」就做到？能的話，告訴我屬性名稱和要填的值。
+2. 改完還要不要重新執行哪個函式、或重新部署？
+3. 如果一定要改程式碼，先告訴我會改到哪裡、有什麼風險，等我同意再給程式碼。
+
+---- 設定說明 ----
+<span class="fillin">（貼上 training-bot.gs 最上面 /** 設定都放「指令碼屬性」… */ 那一整段註解）</span></pre></div>
+</div>
+<div class="note ok">以早報時間為例，正確答案是：指令碼屬性加 <code>DIGEST_HOUR</code> = 6、<code>DIGEST_MINUTE</code> = 30，再執行一次 <code>setupTrigger</code>，不用改程式碼。拿這題試試 Gemini 答得對不對。</div>
 
 <!-- ================= 第 1 關 ================= -->
 <div class="part newpage"><span class="tag">第 1 關</span><h2>拿鑰匙：幫小秘書辦電話、裝腦袋</h2><span class="time">約 15 分鐘</span></div>
@@ -219,6 +335,7 @@ footer{margin-top:30px;color:var(--muted);font-size:12px;border-top:1px solid va
       <li>按 <span class="kbd">Ctrl</span>+<span class="kbd">S</span> 存檔</li>
     </ol>
     <div class="note ok">第一行是 <code>// ===== Config.js =====</code>，存檔後沒有跳出紅色錯誤訊息。</div>
+    <div class="note ai">小秘書的程式是寫好的，直接複製就好。以後用<strong>範本 A</strong> 請 Gemini 寫的新程式，也是照這一步貼進新專案。</div>
   </div>
 </div>
 
@@ -258,6 +375,7 @@ footer{margin-top:30px;color:var(--muted);font-size:12px;border-top:1px solid va
 早報觸發器：每天 7:30 左右
 ⚠️ 還沒設定：ALLOWED_USER_IDS</div></div></div>
     <div class="note ok">看到上面五行就對了。最後一行的 ⚠️ <strong>是正常的</strong>，第 11 步才會補上。</div>
+    <div class="note ai">想知道 <code>setup</code> 到底做了什麼？在編輯區反白整個 <code>function setup() { … }</code>，用<strong>範本 C</strong> 請 Gemini 解釋。執行跳紅字就用<strong>範本 B</strong>。</div>
   </div>
 </div>
 
@@ -271,6 +389,7 @@ footer{margin-top:30px;color:var(--muted);font-size:12px;border-top:1px solid va
     </ol>
     <div class="note ok">記錄裡出現一段有 <code>"title"</code>、<code>"date"</code>（9 月 28 日）、<code>"start": "19:00"</code> 的文字，就代表 Gemini 讀得懂公告。</div>
     <div class="note warn">如果出現 <code>API key not valid</code>：回第 5 步檢查 <code>GEMINI_API_KEY</code> 有沒有貼完整、前後有沒有多空白。</div>
+    <div class="note ai">出現其他紅字看不懂？用<strong>範本 B</strong>，把執行記錄的紅字貼給 Gemini（先刪掉裡面的鑰匙）。</div>
   </div>
 </div>
 
@@ -374,6 +493,7 @@ footer{margin-top:30px;color:var(--muted);font-size:12px;border-top:1px solid va
   <tr><td>開課前 30 分鐘</td><td>手機 Google 日曆跳通知，點開就有地址或會議連結</td></tr>
   <tr><td>當天早上 7:30 左右</td><td>LINE 早報：今天的研習，附上明天的和 3 天內報名截止的。<strong>當天沒研習就不發</strong>（假日也一樣）</td></tr>
 </table>
+<div class="note ai">想把早報改成別的時間、提醒提早 1 小時？用<strong>範本 D</strong> 問該改哪個設定。想要小秘書沒有的功能（例如每週日寄一封下週研習清單）？用<strong>範本 A</strong> 請 Gemini 另外寫一支。</div>
 
 <h3 style="margin:18px 0 4px">隨時可以問它（不花推播額度，想問幾次都行）</h3>
 <div class="cmd">
@@ -383,8 +503,80 @@ footer{margin-top:30px;color:var(--muted);font-size:12px;border-top:1px solid va
   <div><b>說明</b>用法提示</div>
 </div>
 
+<!-- ================= 加碼：提示詞 ================= -->
+<div class="part newpage"><span class="tag">加碼</span><h2>沒架小秘書也能用：在 Gemini／ChatGPT 下提示詞</h2><span class="time">回家延伸</span></div>
+<p class="part-intro">小秘書的腦袋，其實就是一段事先寫好的「提示詞」。用第 0 關學的四句話，打開 Gemini 或 ChatGPT 網頁一樣能幫你整理研習、摘要講義、寫心得。</p>
+
+<h3 style="margin:18px 0 4px">範本 1｜研習公告 → 整理成資訊表（兩邊都能用）</h3>
+<p>整段複製貼上，<span class="fillin">黃底</span>的地方換成你的內容。公告是圖片或 PDF 的話，直接把檔案一起丟進去。</p>
+<div class="prompt"><div class="ph">📋 複製這段</div><pre>你是學校教務處的行政助理。請把下面的研習公告整理成表格。
+
+規則：
+1. 今天是 <span class="fillin">2026 年 10 月 1 日</span>，公告沒寫年份就用這個推算；民國年請換成西元年。
+2. 原文沒寫的欄位一律寫「未提及」，不要推測，尤其是結束時間和網址。
+3. 多天或多場次的研習，每一場各寫一列。
+4. 網址只能照抄原文，不可以自己編。
+
+表格欄位：研習名稱｜日期（星期）｜時間｜實體／線上｜地點或會議連結｜報名截止｜研習時數｜要注意的事
+
+---- 公告全文 ----
+<span class="fillin">（貼上公告）</span></pre></div>
+<div class="note ok">整理好之後，<strong>對照原公告看一次日期和時間</strong>，跟按小秘書的 ✅ 前一樣。</div>
+
+<h3 style="margin:18px 0 4px">範本 2｜Gemini 直接幫你寫進 Google 日曆</h3>
+<ol style="margin:4px 0;padding-left:22px">
+  <li>開 <code>gemini.google.com</code>，用<strong>個人 Gmail</strong> 登入（跟日曆同一個帳號）</li>
+  <li>第一次用先到 <span class="menu">設定</span> → <span class="menu">應用程式</span>，確認 Google Workspace（含日曆）是開啟的</li>
+  <li>貼上範本 1 的結果或公告原文，再接著輸入：</li>
+</ol>
+<div class="prompt"><div class="ph">📅 接著輸入</div><pre>@Google 日曆 把上面這場研習加到我的「<span class="fillin">研習</span>」日曆，
+標題用研習名稱，說明欄放地點或會議連結。
+報名截止那天另外加一個全天事件，標題是「⏰ 報名截止：研習名稱」。
+加之前先列出你要建立的內容讓我確認。</pre></div>
+<div class="note tip">最後一句「先列出來讓我確認」很好用：它會先給你看，你回「好」才真的寫進去。日曆名稱填你自己有的那本，沒有就寫「主要日曆」。</div>
+<div class="note warn">ChatGPT 沒辦法直接寫進你的 Google 日曆：用範本 1 整理好之後，自己到日曆新增就好。</div>
+
+<h3 style="margin:18px 0 4px">範本 3｜研習講義 → 重點摘要＋帶回教室</h3>
+<div class="prompt"><div class="ph">📚 上傳講義 PDF 或簡報截圖，再貼這段</div><pre>你是有 10 年經驗的<span class="fillin">國小</span>老師。請讀完這份研習講義，幫我：
+1. 用 5 點條列講義重點，每點不超過 30 字。
+2. 設計 2 個可以在<span class="fillin">五年級</span>課堂用的活動，每個 15 分鐘內完成，寫出步驟和需要的材料。
+3. 列出講義提到、但我還要自己查的名詞或工具。
+只根據講義內容回答；講義沒提到、你另外補充的，請標註「延伸建議」。</pre></div>
+
+<h3 style="margin:18px 0 4px">範本 4｜研習心得／回饋單草稿</h3>
+<div class="prompt"><div class="ph">✍️ 先寫三句自己的感想，再貼這段</div><pre>幫我把下面的筆記寫成約 <span class="fillin">300 字</span>的研習心得，語氣自然、像老師自己寫的，
+不要加入我沒提到的經驗或數據。
+
+研習名稱：<span class="fillin">資訊素養增能研習</span>
+我的筆記：
+- 印象最深：<span class="fillin">……</span>
+- 我想試試：<span class="fillin">……</span>
+- 還有疑問：<span class="fillin">……</span></pre></div>
+<div class="note tip">一定要先給<strong>自己的</strong>三句話。什麼都不給，AI 就會寫出一篇誰都能交的「罐頭心得」。</div>
+
+<div style="break-inside:avoid">
+<h3 style="margin:18px 0 4px">Gemini 和 ChatGPT 怎麼選</h3>
+<table class="faq">
+  <tr><th style="width:22%"></th><th style="width:39%">Gemini</th><th>ChatGPT</th></tr>
+  <tr><td>網址</td><td><code>gemini.google.com</code></td><td><code>chatgpt.com</code></td></tr>
+  <tr><td>讀圖片／PDF</td><td>可以</td><td>可以；免費版每天上傳檔案的次數有限</td></tr>
+  <tr><td>直接寫進日曆</td><td>可以（範本 2）</td><td>不行，整理好自己貼</td></tr>
+  <tr><td>適合</td><td>本來就用 Gmail、Google 日曆的人</td><td>寫心得、改寫文字、問問題</td></tr>
+</table>
+</div>
+
+<h3 style="margin:18px 0 4px">下提示詞的三個好習慣</h3>
+<div class="panel">
+  <ol style="margin:0;padding-left:20px">
+    <li><strong>不滿意就接著說，不用重來</strong>：「第二場的時間再對一次原文」「改成條列」「再短一點」，AI 會在同一段對話裡修改</li>
+    <li><strong>貼全文，不要只貼網址</strong>：臉書、校內系統要登入才看得到，AI 讀不到就會亂猜</li>
+    <li><strong>個資不要貼</strong>：學生名單、成績、身分證字號都別丟進去，跟使用小秘書的規矩一樣</li>
+  </ol>
+</div>
+
 <!-- ================= 疑難排解 ================= -->
 <div class="part newpage"><span class="tag">附錄</span><h2>卡關了？對照這張表</h2></div>
+<p class="part-intro">表上找不到的狀況，把錯誤訊息丟給 Gemini（第 0 關範本 B），記得先刪掉裡面的鑰匙。</p>
 <table class="faq">
   <tr><th style="width:30%">狀況</th><th style="width:30%">最可能的原因</th><th>怎麼解</th></tr>
   <tr><td>第 6 步按執行，一直跳錯</td><td>用了學校帳號</td><td>登出，改用個人 Gmail 重做第 4 步起</td></tr>
