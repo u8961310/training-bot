@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>研習小秘書講義</title>
+<style>
+:root{
+  --bg:#ffffff; --ink:#1c2b22; --muted:#5f6b64; --line:#dfe5e1;
+  --brand:#16803c; --brand-deep:#0f5e2c; --brand-soft:#e7f4ec;
+  --accent:#1a73e8; --accent-soft:#e8f0fe;
+  --warn:#c5221f; --warn-soft:#fdecea;
+  --tip:#9a6700; --tip-soft:#fff5d6;
+  --card:#f6f8f7;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;line-height:1.75;font-size:15px}
+main{max-width:820px;margin:0 auto;padding:32px 16px 48px}
+p{margin:6px 0}
+code,.kbd{font-family:Consolas,"Noto Sans Mono",monospace;background:var(--card);border:1px solid var(--line);
+  border-radius:5px;padding:0 5px;font-size:.9em;word-break:break-all}
+.btn{display:inline-block;background:var(--accent);color:#fff;border-radius:5px;padding:0 8px;font-size:.88em;font-weight:bold;white-space:nowrap}
+.btn.gray{background:#fff;color:var(--ink);border:1px solid #b9c2bd}
+.btn.green{background:var(--brand)}
+.menu{font-weight:bold;color:var(--brand-deep)}
+
+/* 封面 */
+.cover{background:linear-gradient(135deg,#16803c,#0f5e2c);color:#fff;border-radius:18px;padding:30px 30px 26px}
+.cover small{letter-spacing:3px;opacity:.85;font-size:13px}
+.cover h1{margin:6px 0 4px;font-size:36px;line-height:1.25}
+.cover p{margin:0;font-size:16px;opacity:.95}
+.goal{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px}
+.goal div{background:rgba(255,255,255,.14);border-radius:12px;padding:10px 12px;font-size:14px;line-height:1.5}
+.goal b{display:block;font-size:20px}
+
+.prep{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0 6px}
+.panel{border:1px solid var(--line);border-radius:14px;padding:12px 16px;background:var(--card)}
+.panel h3{margin:0 0 4px;font-size:16px}
+.panel ul{margin:0;padding-left:20px}
+.check li{list-style:none;margin-left:-20px}
+.check li::before{content:"☐ ";color:var(--brand);font-weight:bold}
+
+/* 路線圖 */
+.map{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:14px 0}
+.map div{border-radius:12px;padding:10px 12px;background:var(--brand-soft);font-size:13px;line-height:1.45}
+.map b{display:block;font-size:15px;color:var(--brand-deep)}
+.map span{color:var(--muted)}
+
+/* 關卡標題 */
+.part{margin:34px 0 14px;display:flex;align-items:center;gap:14px;border-bottom:3px solid var(--brand);padding-bottom:8px}
+.part .tag{background:var(--brand);color:#fff;border-radius:10px;padding:4px 12px;font-weight:bold;font-size:14px;white-space:nowrap}
+.part h2{margin:0;font-size:22px;line-height:1.35}
+.part .time{margin-left:auto;color:var(--muted);font-size:13px;white-space:nowrap}
+.part-intro{color:var(--muted);margin:-4px 0 12px}
+
+/* 步驟卡 */
+.step{display:grid;grid-template-columns:48px 1fr;gap:14px;padding:14px 0;border-bottom:1px dashed var(--line)}
+.step:last-of-type{border-bottom:0}
+.num{width:44px;height:44px;border-radius:50%;background:var(--brand);color:#fff;font-weight:bold;font-size:20px;
+  display:flex;align-items:center;justify-content:center}
+.step h3{margin:6px 0 6px;font-size:17px;line-height:1.4}
+.step ol{margin:4px 0;padding-left:22px}
+.step ol li{margin:2px 0}
+.note{border-radius:10px;padding:8px 12px;margin:8px 0;font-size:14px;line-height:1.6}
+.note.ok{background:var(--brand-soft)}
+.note.ok::before{content:"✔ 檢查點　";font-weight:bold;color:var(--brand-deep)}
+.note.tip{background:var(--tip-soft)}
+.note.tip::before{content:"💡 小提醒　";font-weight:bold;color:var(--tip)}
+.note.warn{background:var(--warn-soft)}
+.note.warn::before{content:"⚠️ 注意　";font-weight:bold;color:var(--warn)}
+
+/* 畫面示意 */
+.screen{border:1px solid #c9d1cc;border-radius:10px;overflow:hidden;margin:8px 0;font-size:13px;max-width:520px;background:#fff}
+.screen .bar{background:#eef1ef;padding:4px 10px;color:var(--muted);font-size:12px;display:flex;gap:6px;align-items:center}
+.screen .bar i{width:8px;height:8px;border-radius:50%;background:#c9d1cc;display:inline-block}
+.screen .body{padding:10px 12px;line-height:1.6}
+.screen table{border-collapse:collapse;width:100%}
+.screen td{border:1px solid var(--line);padding:3px 8px}
+.screen td:first-child{font-family:Consolas,monospace;width:52%}
+.screen .log{font-family:Consolas,monospace;font-size:12px;background:#f8faf9;border-radius:6px;padding:6px 10px;white-space:pre-wrap}
+.hl{outline:2px solid var(--warn);outline-offset:2px;border-radius:4px}
+
+/* LINE 對話示意 */
+.chat{background:#8cabd9;border-radius:12px;padding:10px;max-width:340px;margin:8px 0;font-size:13px}
+.bub{background:#fff;border-radius:12px;padding:6px 10px;margin:6px 0;max-width:88%;line-height:1.5}
+.bub.me{background:#b6f39a;margin-left:auto}
+
+.faq{width:100%;border-collapse:collapse;font-size:14px;margin:8px 0}
+.faq code{word-break:keep-all;white-space:nowrap}
+.faq th,.faq td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top}
+.faq th{background:var(--card)}
+.cmd{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:8px 0}
+.cmd div{border:2px solid var(--brand);border-radius:12px;padding:8px 10px;text-align:center;font-size:13px;line-height:1.4}
+.cmd b{display:block;font-size:17px;color:var(--brand-deep)}
+footer{margin-top:30px;color:var(--muted);font-size:12px;border-top:1px solid var(--line);padding-top:8px}
+.fill{display:inline-block;min-width:220px;border-bottom:1.5px solid var(--ink)}
+
+@media (max-width:640px){
+  .goal,.prep,.map,.cmd{grid-template-columns:1fr 1fr}
+  .part{flex-wrap:wrap}
+  .part .time{margin-left:0}
+}
+@media print{
+  @page{size:A4;margin:13mm 14mm 14mm}
+  body{font-size:13.5px;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  main{padding:0;max-width:none}
+  .part{break-after:avoid}
+  .part.newpage{break-before:page;margin-top:0}
+  .step,.note,.screen,.chat,.panel,.map,.faq tr,.cmd{break-inside:avoid}
+}
+</style>
+</head>
+<body>
+<main>
+
+<!-- ================= 封面頁 ================= -->
+<section class="cover">
+  <small>教師研習｜實作講義</small>
+  <h1>60 分鐘，架一個<br>幫你記研習的 LINE 小秘書</h1>
+  <p>研習公告傳給 LINE，它幫你抄進 Google 日曆，時間到了提醒你。全程免費，不用寫程式。</p>
+  <div class="goal">
+    <div><b>① 會架</b>用自己的帳號架好一套</div>
+    <div><b>② 會用</b>現場傳一則公告成功入曆</div>
+    <div><b>③ 會顧</b>知道出錯時去哪裡看</div>
+  </div>
+</section>
+
+<div class="prep">
+  <div class="panel">
+    <h3>📋 上課前請準備</h3>
+    <ul class="check">
+      <li>筆電一台（用 Chrome 瀏覽器）</li>
+      <li>手機，裝好 LINE</li>
+      <li><strong>個人</strong> Gmail 帳號與密碼</li>
+      <li>一則真實的研習公告（等一下測試用）</li>
+    </ul>
+  </div>
+  <div class="panel">
+    <h3>📁 程式碼放在 GitHub</h3>
+    <p>只有一個檔 <code>training-bot.gs</code>，第 4 步整個複製貼上：</p>
+    <p><code>github.com/u8961310/training-bot</code><br>→ 點 <code>docs</code> 資料夾 → <code>training-bot.gs</code></p>
+    <p>講義線上版：<code>u8961310.github.io/training-bot</code></p>
+    <p style="color:var(--muted);font-size:13px">為什麼要個人 Gmail？學校帳號常被管理者擋掉「外部網頁應用程式」，做到第 8 步會卡住。</p>
+  </div>
+</div>
+
+<h3 style="margin:18px 0 0">今天的路線圖</h3>
+<div class="map">
+  <div><b>第 1 關｜拿鑰匙</b>LINE 與 Gemini 各拿一把<br><span>步驟 1–3・約 15 分</span></div>
+  <div><b>第 2 關｜搬進家具</b>把程式放進 Google<br><span>步驟 4–7・約 15 分</span></div>
+  <div><b>第 3 關｜接上電話線</b>讓 LINE 找得到它<br><span>步驟 8–11・約 15 分</span></div>
+  <div><b>第 4 關｜試用</b>傳公告、看日曆<br><span>步驟 12・約 10 分</span></div>
+</div>
+<div class="note tip">打個比方：小秘書要上班，需要一支<strong>電話</strong>（LINE 官方帳號）、一顆<strong>腦袋</strong>（Gemini AI）、一張<strong>辦公桌</strong>（Google Apps Script）。今天就是依序把這三樣準備好，再把電話線接到桌上。</div>
+<div class="note warn">等一下拿到的兩把「鑰匙」（Token、API key）就像家裡鑰匙：<strong>不要拍照上傳、不要貼到群組</strong>。整個過程只貼在你自己的 Google 專案裡。</div>
+
+<!-- ================= 第 1 關 ================= -->
+<div class="part newpage"><span class="tag">第 1 關</span><h2>拿鑰匙：幫小秘書辦電話、裝腦袋</h2><span class="time">約 15 分鐘</span></div>
+
+<div class="step">
+  <div class="num">1</div>
+  <div>
+    <h3>開一個 LINE 官方帳號（小秘書的電話）</h3>
+    <ol>
+      <li>電腦開 <code>manager.line.biz</code>，用你的 LINE 帳號登入</li>
+      <li>按 <span class="btn">建立</span>，帳號名稱填「研習小秘書」，業種隨意選（例如「教育」）</li>
+      <li>建好後進入這個帳號，按右上角 <span class="menu">設定</span> → 左邊 <span class="menu">Messaging API</span> → <span class="btn">啟用 Messaging API</span></li>
+      <li>「服務提供者」選 <span class="menu">建立新的</span>，名稱填你的名字即可 → 同意 → 確定</li>
+    </ol>
+    <div class="note ok">畫面顯示 Channel ID、Channel secret，就代表啟用成功。</div>
+  </div>
+</div>
+
+<div class="step">
+  <div class="num">2</div>
+  <div>
+    <h3>拿第一把鑰匙：Channel access token</h3>
+    <ol>
+      <li>同一頁點連結進入 <code>developers.line.biz</code>（LINE Developers），找到剛剛的 channel</li>
+      <li>上方分頁切到 <span class="menu">Messaging API</span>，捲到最下面 <span class="menu">Channel access token</span></li>
+      <li>按 <span class="btn">Issue</span>，出現一長串英數字，按旁邊的複製圖示</li>
+      <li>先貼在電腦的「記事本」暫放，第 5 步會用到</li>
+    </ol>
+    <div class="screen"><div class="bar"><i></i><i></i><i></i> LINE Developers ─ Messaging API</div>
+      <div class="body">Channel access token (long-lived)<br><code>eyJhbGciOiJIUzI1NiJ9.xxxxxxxx……</code> <span class="btn gray hl">Issue</span></div></div>
+    <div class="note tip">順便在同一頁把 <span class="menu">Auto-reply messages（自動回應訊息）</span>設成「停用」，不然每次傳訊息，LINE 都會搶著回一句罐頭訊息。</div>
+  </div>
+</div>
+
+<div class="step">
+  <div class="num">3</div>
+  <div>
+    <h3>拿第二把鑰匙：Gemini API key（小秘書的腦袋）</h3>
+    <ol>
+      <li>開 <code>aistudio.google.com</code>，用<strong>個人 Gmail</strong> 登入；第一次會要你同意條款</li>
+      <li>點 <span class="menu">Get API key</span> → <span class="btn">Create API key</span>（要選專案就選預設的）</li>
+      <li>複製那串 <code>AIza…</code> 開頭的字，一樣先貼到記事本</li>
+    </ol>
+    <div class="note ok">記事本裡現在有兩行：一行 LINE token、一行 <code>AIza…</code>。</div>
+    <div class="note tip">免費方案不用綁信用卡。完整的 key 只會顯示一次，忘了複製的話，刪掉重建一個就好。</div>
+  </div>
+</div>
+
+<!-- ================= 第 2 關 ================= -->
+<div class="part"><span class="tag">第 2 關</span><h2>搬進家具：把程式放進 Google Apps Script</h2><span class="time">約 15 分鐘</span></div>
+<p class="part-intro">Apps Script 是 Google 免費提供的「雲端小電腦」，程式放上去就會 24 小時待命，不用開著你的電腦。</p>
+
+<div class="step">
+  <div class="num">4</div>
+  <div>
+    <h3>建立專案，貼上程式</h3>
+    <ol>
+      <li>開 <code>script.google.com</code> → 左上角 <span class="btn">新專案</span></li>
+      <li>點上方「未命名的專案」，改名為「研習小秘書」</li>
+      <li>編輯區已經有幾行預設程式碼：點進去按 <span class="kbd">Ctrl</span>+<span class="kbd">A</span> 全選，刪掉</li>
+      <li>另開分頁到 <code>github.com/u8961310/training-bot</code> → 點 <code>docs</code> → <code>training-bot.gs</code>，按程式碼右上角的 <span class="btn gray">⧉ Copy raw file</span> 複製全部</li>
+      <li>回到 Apps Script 編輯區，按 <span class="kbd">Ctrl</span>+<span class="kbd">V</span> 貼上</li>
+      <li>按 <span class="kbd">Ctrl</span>+<span class="kbd">S</span> 存檔</li>
+    </ol>
+    <div class="note ok">第一行是 <code>// ===== Config.js =====</code>，存檔後沒有跳出紅色錯誤訊息。</div>
+  </div>
+</div>
+
+<div class="step">
+  <div class="num">5</div>
+  <div>
+    <h3>把兩把鑰匙放進保險箱（指令碼屬性）</h3>
+    <ol>
+      <li>左側點齒輪 <span class="menu">⚙ 專案設定</span></li>
+      <li>確認 <span class="menu">時區</span> 是「(GMT+08:00) 台北」，不是的話改過來</li>
+      <li>捲到最下面 <span class="menu">指令碼屬性</span> → <span class="btn gray">新增指令碼屬性</span>，照下表加兩行（左邊<strong>一字不差</strong>，大寫、底線都要對）</li>
+      <li>按 <span class="btn">儲存指令碼屬性</span></li>
+    </ol>
+    <div class="screen"><div class="bar"><i></i><i></i><i></i> 專案設定 ─ 指令碼屬性</div>
+      <div class="body"><table>
+        <tr><td>LINE_CHANNEL_ACCESS_TOKEN</td><td>（第 2 步那串）</td></tr>
+        <tr><td>GEMINI_API_KEY</td><td>（第 3 步 AIza… 那串）</td></tr>
+      </table></div></div>
+    <div class="note tip">鑰匙放在這裡，而不是寫在程式碼裡，這樣哪天要把程式分享給別人，也不會連鑰匙一起送出去。</div>
+  </div>
+</div>
+
+<div class="step">
+  <div class="num">6</div>
+  <div>
+    <h3>執行 <code>setup</code>，讓它自己建日曆與試算表</h3>
+    <ol>
+      <li>回到 <span class="menu">&lt;&gt; 編輯器</span>，上方工具列的函式下拉選單選 <code>setup</code> → 按 <span class="btn">▷ 執行</span></li>
+      <li>跳出「需要授權」→ <span class="btn">審查權限</span> → 選你的 Gmail</li>
+      <li>看到「Google 尚未驗證這個應用程式」→ 點左下 <span class="menu">進階</span> → <span class="menu">前往「研習小秘書」（不安全）</span> → <span class="btn">允許</span></li>
+    </ol>
+    <div class="note tip">為什麼寫「不安全」？因為這支程式是你自己的，沒送 Google 審查。它要的權限（日曆、試算表、寄信、連外網）都是給你自己的小秘書用的。</div>
+    <div class="screen"><div class="bar"><i></i><i></i><i></i> 執行記錄</div>
+      <div class="body"><div class="log">已建立日曆：研習
+已建立試算表：https://docs.google.com/spreadsheets/d/……
+早報觸發器：每天 7:30 左右
+⚠️ 還沒設定：ALLOWED_USER_IDS</div></div></div>
+    <div class="note ok">看到上面四行就對了。最後一行的 ⚠️ <strong>是正常的</strong>，第 11 步才會補上。</div>
+  </div>
+</div>
+
+<div class="step">
+  <div class="num">7</div>
+  <div>
+    <h3>執行 <code>testExtract</code>，確認腦袋會動</h3>
+    <ol>
+      <li>下拉選單改選 <code>testExtract</code> → <span class="btn">▷ 執行</span></li>
+      <li>等 3–10 秒，看下方執行記錄</li>
+    </ol>
+    <div class="note ok">記錄裡出現一段有 <code>"title"</code>、<code>"date"</code>（9 月 28 日）、<code>"start": "19:00"</code> 的文字，就代表 Gemini 讀得懂公告。</div>
+    <div class="note warn">如果出現 <code>API key not valid</code>：回第 5 步檢查 <code>GEMINI_API_KEY</code> 有沒有貼完整、前後有沒有多空白。</div>
+  </div>
+</div>
+
+<!-- ================= 第 3 關 ================= -->
+<div class="part"><span class="tag">第 3 關</span><h2>接上電話線：讓 LINE 找得到小秘書</h2><span class="time">約 15 分鐘</span></div>
+
+<div class="step">
+  <div class="num">8</div>
+  <div>
+    <h3>部署成「網頁應用程式」，拿到門牌網址</h3>
+    <ol>
+      <li>編輯器右上角 <span class="btn">部署</span> → <span class="menu">新增部署作業</span></li>
+      <li>「選取類型」旁的齒輪 → 選 <span class="menu">網頁應用程式</span></li>
+      <li>執行身分：<strong>我</strong>；誰可以存取：<strong>所有人</strong> → <span class="btn">部署</span></li>
+      <li>複製畫面上的「網頁應用程式」網址（<code>https://script.google.com/macros/s/……/exec</code>）</li>
+    </ol>
+    <div class="note ok">把網址貼到瀏覽器新分頁打開，畫面只出現一行 <code>training-bot OK</code>。</div>
+    <div class="note warn">「所有人」是為了讓 LINE 伺服器打得進來。這個網址等於小秘書的門牌，<strong>不要公開分享</strong>；陌生人就算知道，第 11 步的白名單也會擋住。</div>
+  </div>
+</div>
+
+<div class="step">
+  <div class="num">9</div>
+  <div>
+    <h3>把門牌填到 LINE（Webhook）</h3>
+    <ol>
+      <li>回 LINE Developers → 你的 channel → <span class="menu">Messaging API</span> 分頁</li>
+      <li><span class="menu">Webhook URL</span> 按 <span class="btn gray">Edit</span>，貼上第 8 步的網址 → <span class="btn">Update</span></li>
+      <li>把下面的 <span class="menu">Use webhook</span> 開關打開（變綠色）</li>
+    </ol>
+    <div class="note tip">旁邊的 <span class="btn gray">Verify</span> 按下去可能顯示錯誤（Google 會多轉一次網址），<strong>不用理它</strong>，以第 10 步實測為準。</div>
+  </div>
+</div>
+
+<div class="step">
+  <div class="num">10</div>
+  <div>
+    <h3>手機加好友，問出你的 userId</h3>
+    <ol>
+      <li>同一頁上方有 <span class="menu">QR code</span>，用手機 LINE 掃描 → 加入好友</li>
+      <li>傳一句「你好」給小秘書</li>
+    </ol>
+    <div class="chat">
+      <div class="bub me">你好</div>
+      <div class="bub">🔧 設定模式<br>你的 userId：<br>U1a2b3c4d5e6f……<br><br>把它填進指令碼屬性 ALLOWED_USER_IDS 就能開始用。</div>
+    </div>
+    <div class="note ok">收到「🔧 設定模式」這則回覆，代表電話線接通了！</div>
+    <div class="note tip">傳了沒反應？九成是第 9 步的 Use webhook 沒打開，或第 2 步的自動回應訊息沒關。</div>
+  </div>
+</div>
+
+<div class="step">
+  <div class="num">11</div>
+  <div>
+    <h3>把自己加進白名單</h3>
+    <ol>
+      <li>在手機上長按那串 <code>U……</code> 複製，用 LINE 傳給自己的電腦版，或直接在電腦版 LINE 複製</li>
+      <li>回 Apps Script → <span class="menu">⚙ 專案設定</span> → 指令碼屬性 → 新增第三行：
+        <div class="screen"><div class="body"><table><tr><td>ALLOWED_USER_IDS</td><td>U1a2b3c4d5e6f……</td></tr></table></div></div></li>
+      <li>儲存。<strong>不用重新部署</strong>，馬上生效</li>
+    </ol>
+    <div class="note tip">要讓家人也能用？多個 userId 用半形逗號隔開。不過大家的研習都會寫進<strong>同一本</strong>日曆，建議每個人各自架一套。</div>
+  </div>
+</div>
+
+<!-- ================= 第 4 關 ================= -->
+<div class="part"><span class="tag">第 4 關</span><h2>試用：傳第一則公告，看它進日曆</h2><span class="time">約 10 分鐘</span></div>
+
+<div class="step">
+  <div class="num">12</div>
+  <div>
+    <h3>傳公告 → 看卡片 → 按 ✅ → 開日曆</h3>
+    <ol>
+      <li>把你準備的研習公告<strong>全文</strong>複製，貼給小秘書（掃描檔或臉書貼文複製不了的話，就截圖傳過去）</li>
+      <li>幾秒後會收到確認卡片，<strong>對照原公告看日期、時間</strong>，沒問題按 <span class="btn green">✅ 入曆</span></li>
+      <li>手機打開 Google 日曆 → 左上角選單 → 勾選「研習」日曆</li>
+    </ol>
+    <div class="chat">
+      <div class="bub me">【研習公告】資訊素養增能研習<br>10/15（三）14:00–16:00 線上……</div>
+      <div class="bub">📋 請確認研習資訊<br><strong>💻 資訊素養增能研習</strong><br>時間　10/15（三）14:00–16:00<br>報名截止　2026-10-08<br>時數　2<br><span class="btn green">✅ 入曆</span> <span class="btn gray">❌ 丟掉</span></div>
+    </div>
+    <p style="color:var(--muted);font-size:12.5px;margin:0">↑ 示意畫面，內容為虛構範例</p>
+    <div class="note ok">日曆上出現「💻 資訊素養增能研習」，報名截止那天也多了一個「⏰ 報名截止」的全天事件。<strong>恭喜，完成了！</strong></div>
+  </div>
+</div>
+
+<h3 style="margin:22px 0 4px">之後每天怎麼用</h3>
+<div class="panel">
+  <ul>
+    <li><strong>看到公告就丟給它</strong>：文字或截圖都可以。只貼網址不行（臉書要登入才看得到，它讀不到）</li>
+    <li><strong>卡片標題的圖示</strong>：🏫 實體、💻 線上、🔀 混合；公告沒寫的欄位會空著，<strong>AI 不會自己猜</strong></li>
+    <li><strong>看到紅字「⚠️ 日期時間信心偏低」</strong>：AI 不太確定，一定要對照原文再按 ✅</li>
+    <li><strong>它只負責抄，不會幫你報名</strong>，報名連結還是要自己點</li>
+  </ul>
+</div>
+
+<h3 style="margin:18px 0 4px">它會在這兩個時間提醒你</h3>
+<table class="faq">
+  <tr><th style="width:26%">什麼時候</th><th>怎麼提醒</th></tr>
+  <tr><td>開課前 30 分鐘</td><td>手機 Google 日曆跳通知，點開就有地址或會議連結</td></tr>
+  <tr><td>當天早上 7:30 左右</td><td>LINE 早報：今天的研習，附上明天的和 3 天內報名截止的。<strong>當天沒研習就不發</strong>（假日也一樣）</td></tr>
+</table>
+
+<h3 style="margin:18px 0 4px">隨時可以問它（不花推播額度，想問幾次都行）</h3>
+<div class="cmd">
+  <div><b>本週</b>未來 7 天的研習</div>
+  <div><b>下一場</b>最近一場的時間地點</div>
+  <div><b>時數</b>本學年累計研習時數</div>
+  <div><b>說明</b>用法提示</div>
+</div>
+
+<!-- ================= 疑難排解 ================= -->
+<div class="part newpage"><span class="tag">附錄</span><h2>卡關了？對照這張表</h2></div>
+<table class="faq">
+  <tr><th style="width:30%">狀況</th><th style="width:30%">最可能的原因</th><th>怎麼解</th></tr>
+  <tr><td>第 6 步按執行，一直跳錯</td><td>用了學校帳號</td><td>登出，改用個人 Gmail 重做第 4 步起</td></tr>
+  <tr><td>第 7 步出現 <code>API key not valid</code></td><td>Gemini key 貼錯</td><td>回第 5 步檢查，前後不要有空白</td></tr>
+  <tr><td>第 7 步出現 <code>429</code> 或 quota</td><td>免費額度一分鐘內用太多次</td><td>等 1 分鐘再試（現場大家同時跑偶爾會遇到）</td></tr>
+  <tr><td>傳「你好」完全沒反應</td><td>Webhook 沒開、網址貼錯</td><td>第 9 步重檢查：網址要以 <code>/exec</code> 結尾、Use webhook 是綠色</td></tr>
+  <tr><td>會回罐頭訊息，但沒有設定模式</td><td>自動回應沒關</td><td>第 2 步的小提醒：停用自動回應訊息</td></tr>
+  <tr><td>加了白名單後傳公告沒反應</td><td>userId 複製不完整</td><td>把 <code>ALLOWED_USER_IDS</code> 清空 → 再傳「你好」→ 重新複製</td></tr>
+  <tr><td>日曆上看不到研習</td><td>「研習」日曆沒勾選</td><td>Google 日曆左側「我的日曆」勾選「研習」</td></tr>
+  <tr><td>時間差了 8 小時</td><td>專案時區不對</td><td>第 5 步把時區改成台北</td></tr>
+  <tr><td>日期抓錯</td><td>AI 看錯了</td><td>按 ❌ 丟掉重傳；或入曆後直接在 Google 日曆改</td></tr>
+</table>
+
+<h3 style="margin:22px 0 4px">使用安全三件事</h3>
+<div class="panel">
+  <ol style="margin:0;padding-left:20px">
+    <li><strong>含個資的內容不要傳</strong>（學生名單、身分證字號）。公告會送到 Gemini 免費方案處理，免費方案的資料可能被拿去改進模型。一般研習公告本來就是公開資訊，沒關係</li>
+    <li><strong>鑰匙和門牌網址不外流</strong>：Token、API key、Web app 網址都只放在自己的專案裡</li>
+    <li><strong>按 ✅ 前看一眼日期時間</strong>：這是整套流程裡最重要的一個動作</li>
+  </ol>
+</div>
+
+<h3 style="margin:22px 0 4px">為什麼可以全免費</h3>
+<table class="faq">
+  <tr><th style="width:26%">角色</th><th style="width:34%">用什麼</th><th>費用</th></tr>
+  <tr><td>電話</td><td>LINE 官方帳號</td><td>免費方案每月 200 則「主動推播」；你問它答的「回覆」不算。只有早報用推播，超過 150 則會自動改寄 Email</td></tr>
+  <tr><td>腦袋</td><td>Google Gemini</td><td>免費方案，個人用量綽綽有餘</td></tr>
+  <tr><td>辦公桌</td><td>Google Apps Script</td><td>個人 Gmail 免費</td></tr>
+  <tr><td>記事本</td><td>Google 日曆、試算表</td><td>免費；時數從試算表計算</td></tr>
+</table>
+
+<footer>研習小秘書 training-bot｜教師研習實作講義｜版本 2026-09-26｜範例內容皆為虛構</footer>
+</main>
+</body>
+</html>

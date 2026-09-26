@@ -2,3 +2,4 @@ node_modules/
 .clasprc.json
 .env
 .deploy-id
+.clasp.json

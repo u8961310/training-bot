@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<title>研習小秘書海報</title>
+<style>
+:root{--bg:#0f5e2c;--brand:#16803c;--lime:#c6f432;--ink:#13261a;--muted:#5b6b60;--paper:#fffdf6;--warn:#c5221f}
+*{box-sizing:border-box;margin:0}
+body{width:1080px;height:1528px;background:var(--bg);color:var(--ink);overflow:hidden;position:relative;
+  font-family:"Noto Sans TC","Microsoft JhengHei",sans-serif}
+/* 背景裝飾 */
+.blob{position:absolute;border-radius:50%}
+.b1{width:620px;height:620px;background:#16803c;right:-200px;top:-160px}
+.b2{width:360px;height:360px;background:#12703a;left:-140px;top:520px}
+
+/* 上半：痛點＋標題 */
+.hero{position:relative;padding:70px 72px 0;color:#fff;z-index:2}
+.pain{display:inline-block;background:rgba(255,255,255,.12);border:2px solid rgba(255,255,255,.35);border-radius:40px;
+  padding:8px 26px;font-size:30px;letter-spacing:1px}
+.pain s{opacity:.75}
+.hero h1{font-size:112px;line-height:1.08;margin-top:26px;letter-spacing:2px;font-weight:900}
+.hero h1 em{font-style:normal;color:var(--lime)}
+.hero .sub{font-size:34px;margin-top:22px;line-height:1.5;opacity:.95;width:560px}
+.chips{display:flex;gap:12px;margin-top:26px}
+.chips span{background:var(--lime);color:var(--ink);font-weight:bold;font-size:26px;border-radius:12px;padding:6px 18px}
+
+/* 手機示意 */
+.phone{position:absolute;right:66px;top:150px;width:360px;height:620px;background:#1b1b1b;border-radius:52px;padding:14px;
+  box-shadow:0 30px 60px rgba(0,0,0,.35);transform:rotate(4deg);z-index:3}
+.screen{width:100%;height:100%;border-radius:40px;background:#8cabd9;overflow:hidden;display:flex;flex-direction:column}
+.screen .top{background:#2c3e5c;color:#fff;font-size:20px;padding:36px 20px 12px;font-weight:bold}
+.chat{padding:14px;display:flex;flex-direction:column;gap:12px;font-size:17px;line-height:1.45}
+.bub{background:#fff;border-radius:18px;padding:10px 14px;max-width:88%}
+.me{background:#b6f39a;align-self:flex-end}
+.card{background:#fff;border-radius:18px;overflow:hidden;max-width:92%}
+.card .h{padding:10px 14px;border-bottom:1px solid #e5e7eb;font-size:15px;color:#6b7280}
+.card .h b{display:block;color:#111;font-size:18px}
+.card .r{padding:8px 14px;font-size:15px;color:#333;line-height:1.6}
+.card .f{display:flex;gap:8px;padding:0 12px 12px}
+.card .f span{flex:1;text-align:center;border-radius:10px;padding:6px 0;font-weight:bold;font-size:15px}
+.ok{background:var(--brand);color:#fff}.no{background:#f3f4f6}
+.cal{position:absolute;right:300px;top:745px;width:300px;background:#fff;border-radius:22px;padding:16px 18px;z-index:4;
+  box-shadow:0 20px 40px rgba(0,0,0,.3);transform:rotate(-3deg)}
+.cal small{color:var(--muted);font-size:17px}
+.cal .ev{margin-top:8px;border-left:6px solid #0b8043;background:#e6f4ea;border-radius:8px;padding:8px 12px;font-size:19px;line-height:1.35}
+.cal .ev.d{border-color:#d93025;background:#fce8e6}
+
+/* 下半：介紹紙卡 */
+.paper{position:absolute;left:0;right:0;bottom:0;height:570px;background:var(--paper);border-radius:60px 60px 0 0;
+  padding:46px 72px 30px;z-index:1}
+.gain{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.gain div{font-size:24px;line-height:1.45;color:var(--muted)}
+.gain b{display:block;font-size:34px;color:var(--ink)}
+.gain i{font-style:normal;color:var(--brand)}
+.feat{margin-top:28px;display:grid;grid-template-columns:1.1fr 1fr 1fr;gap:18px;border-top:3px dashed #d4ddd7;padding-top:28px}
+.feat>div{background:#fff;border:3px solid #cfe6d7;border-radius:24px;padding:18px 22px}
+.feat h3{font-size:28px;color:var(--brand);margin-bottom:10px}
+.feat p{font-size:22px;line-height:1.6}
+.kw{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.kw span{background:#e7f4ec;border-radius:10px;padding:4px 0;text-align:center;font-weight:bold;font-size:24px}
+.feat small{display:block;color:var(--muted);font-size:19px;margin-top:10px}
+.foot{font-size:21px;color:var(--muted);margin-top:24px;text-align:center}
+.foot b{color:var(--warn)}
+</style>
+</head>
+<body>
+<div class="blob b1"></div><div class="blob b2"></div>
+
+<section class="hero">
+  <div class="pain">公告一堆、<s>看完就忘</s>、錯過報名？</div>
+  <h1>研習公告<br><em>丟給 LINE</em><br>就好</h1>
+  <p class="sub">AI 小秘書幫你抄進 Google 日曆，<br>開課前提醒你。</p>
+  <div class="chips"><span>全程免費</span><span>文字截圖都行</span><span>AI 只抄不猜</span></div>
+</section>
+
+<div class="phone"><div class="screen">
+  <div class="top">‹ 研習小秘書</div>
+  <div class="chat">
+    <div class="bub me">【研習公告】資訊素養增能研習 10/15（三）14:00 線上……</div>
+    <div class="card">
+      <div class="h">📋 請確認研習資訊<b>💻 資訊素養增能研習</b></div>
+      <div class="r">🕑 10/15（三）14:00–16:00<br>⏰ 報名截止 10/8<br>📚 時數 2 小時</div>
+      <div class="f"><span class="ok">✅ 入曆</span><span class="no">❌ 丟掉</span></div>
+    </div>
+    <div class="bub">✅ 已寫進「研習」日曆</div>
+  </div>
+</div></div>
+
+<div class="cal">
+  <small>Google 日曆｜研習</small>
+  <div class="ev d">⏰ 10/8 報名截止</div>
+  <div class="ev">💻 10/15 14:00<br>資訊素養增能研習</div>
+</div>
+
+<section class="paper">
+  <div class="gain">
+    <div><b>① 傳</b>公告文字或截圖<br>丟給 LINE</div>
+    <div><b>② 按</b>AI 整理成卡片<br>確認後按 <i>✅</i></div>
+    <div><b>③ 等</b>自動入曆＋提醒<br>報名截止也記得</div>
+  </div>
+  <div class="feat">
+    <div><h3>隨時問它</h3><div class="kw"><span>本週</span><span>下一場</span><span>時數</span><span>說明</span></div><small>你問它答，不花推播額度</small></div>
+    <div><h3>提醒兩次</h3><p>當天 7:30 LINE 早報<br>開課前 30 分手機通知</p><small>當天沒研習就不打擾</small></div>
+    <div><h3>它不會做的事</h3><p>不幫你報名<br>公告沒寫的不亂猜</p><small>按 ✅ 前看一眼日期</small></div>
+  </div>
+  <p class="foot">LINE × Gemini × Google 日曆　｜　<b>含個資的內容請勿傳送</b></p>
+</section>
+<!-- 範例內容皆為虛構 -->
+</body>
+</html>
