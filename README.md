@@ -54,8 +54,12 @@ GAS 的 `doPost` 拿不到 HTTP header，**無法驗 `X-Line-Signature`**。
 ## 改版
 
 ```
-npm run redeploy    # push ＋ update-deployment，讀 .deploy-id（不進 git），網址不變
+npm run redeploy    # bundle ＋ push ＋ update-deployment，讀 .deploy-id（不進 git），網址不變
 ```
+
+`docs/training-bot.gs` 是給老師整份複製貼上的單檔，由 `src/` 五個檔合併而成（`npm run bundle`，
+`redeploy` 會自動先跑）。**改完 `src/` 要連同這個檔一起 commit**，否則 GitHub 上的講義版本會落後；
+`npm run bundle:check` 可檢查是否一致。
 
 首次部署後把 deploymentId 存進 `.deploy-id`（一行）。
 
