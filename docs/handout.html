@@ -3,149 +3,230 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
 <title>研習小秘書講義</title>
+<link rel="stylesheet" href="hero.css">
 <style>
 :root{
-  --bg:#ffffff; --ink:#1c2b22; --muted:#5f6b64; --line:#dfe5e1;
-  --brand:#16803c; --brand-deep:#0f5e2c; --brand-soft:#e7f4ec;
-  --accent:#1a73e8; --accent-soft:#e8f0fe;
-  --warn:#c5221f; --warn-soft:#fdecea;
-  --tip:#9a6700; --tip-soft:#fff5d6;
-  --card:#f6f8f7;
+  --bg:#ffffff; --ink:#0f172a; --muted:#475569; --line:#e2e8f0; --card:#f8fafc;
+  --brand:#15803d; --brand-deep:#166534; --brand-soft:#dcfce7; --brand-tint:#f0fdf4;
+  --sky:#0284c7; --sky-deep:#075985; --sky-soft:#e0f2fe; --sky-tint:#f0f9ff;
+  --warn:#b91c1c; --warn-soft:#fef2f2;
+  --tip:#a16207; --tip-soft:#fefce8;
+  --ui-blue:#1a73e8;
 }
 *{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:64px}
 body{margin:0;background:var(--bg);color:var(--ink);
-  font-family:"Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;line-height:1.75;font-size:15px}
-main{max-width:820px;margin:0 auto;padding:32px 16px 48px}
+  font-family:"Microsoft JhengHei","PingFang TC","Noto Sans TC",system-ui,sans-serif;line-height:1.75;font-size:15.5px}
+main{max-width:880px;margin:0 auto;padding:28px 16px 56px}
 p{margin:6px 0}
-code,.kbd{font-family:Consolas,"Noto Sans Mono",monospace;background:var(--card);border:1px solid var(--line);
-  border-radius:5px;padding:0 5px;font-size:.9em;word-break:break-all}
-.btn{display:inline-block;background:var(--accent);color:#fff;border-radius:5px;padding:0 8px;font-size:.88em;font-weight:bold;white-space:nowrap}
-.btn.gray{background:#fff;color:var(--ink);border:1px solid #b9c2bd}
-.btn.green{background:var(--brand)}
-.menu{font-weight:bold;color:var(--brand-deep)}
+h3{line-height:1.45}
+a{color:var(--sky)}
+:focus-visible{outline:3px solid var(--sky);outline-offset:2px;border-radius:6px}
+code,.kbd{font-family:Consolas,"Cascadia Mono",monospace;background:var(--card);border:1px solid var(--line);
+  border-radius:5px;padding:0 5px;font-size:.88em;word-break:break-all}
+/* 模擬真實畫面上的按鈕（Google／LINE 介面的藍色按鈕） */
+.btn{display:inline-block;background:var(--ui-blue);color:#fff;border-radius:5px;padding:0 8px;font-size:.86em;font-weight:700;white-space:nowrap}
+.btn.gray{background:#fff;color:var(--ink);border:1px solid #cbd5e1}
+.btn.green{background:#16a34a}
+.menu{font-weight:700;color:var(--brand-deep)}
 
 /* 封面 */
-.cover{background:linear-gradient(135deg,#16803c,#0f5e2c);color:#fff;border-radius:18px;padding:30px 30px 26px}
-.cover small{letter-spacing:3px;opacity:.85;font-size:13px}
-.cover h1{margin:6px 0 4px;font-size:36px;line-height:1.25}
-.cover p{margin:0;font-size:16px;opacity:.95}
-.goal{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px}
-.goal div{background:rgba(255,255,255,.14);border-radius:12px;padding:10px 12px;font-size:14px;line-height:1.5}
-.goal b{display:block;font-size:20px}
+.cover{display:grid;grid-template-columns:1fr minmax(0,400px);gap:28px;align-items:center;
+  background:linear-gradient(135deg,#f0fdf4 0%,#f0f9ff 100%);border:1px solid var(--line);border-radius:20px;padding:30px 28px}
+.eyebrow{display:inline-block;font-size:12.5px;font-weight:700;letter-spacing:.12em;color:var(--brand-deep);background:var(--brand-soft);border-radius:999px;padding:3px 12px}
+.cover h1{margin:12px 0 8px;font-size:34px;line-height:1.28}
+.cover h1 em{font-style:normal;color:var(--brand);white-space:nowrap}
+.cover p.lead{margin:0 0 16px;color:var(--muted);font-size:16px}
+.goal{display:grid;gap:8px}
+.goal div{display:flex;gap:10px;align-items:baseline;background:#fff;border:1px solid var(--line);border-radius:12px;padding:8px 12px;font-size:14.5px;line-height:1.5}
+.goal b{color:var(--brand);white-space:nowrap}
+.cover .hv{max-width:400px}
 
 .prep{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0 6px}
-.panel{border:1px solid var(--line);border-radius:14px;padding:12px 16px;background:var(--card)}
-.panel h3{margin:0 0 4px;font-size:16px}
-.panel ul{margin:0;padding-left:20px}
-.check li{list-style:none;margin-left:-20px}
-.check li::before{content:"☐ ";color:var(--brand);font-weight:bold}
+.panel{border:1px solid var(--line);border-radius:14px;padding:14px 18px;background:var(--card)}
+.panel h3{margin:0 0 6px;font-size:16px}
+.panel ul,.panel ol{margin:0;padding-left:20px}
+.check li{list-style:none;margin-left:-20px;padding-left:24px;position:relative}
+.check li::before{content:"";position:absolute;left:2px;top:.45em;width:12px;height:12px;border:2px solid var(--brand);border-radius:3px}
 
 /* 路線圖 */
-.map{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:14px 0}
-.map div{border-radius:12px;padding:10px 12px;background:var(--brand-soft);font-size:13px;line-height:1.45}
-.map b{display:block;font-size:15px;color:var(--brand-deep)}
+.map{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:12px 0}
+.map div{border:1px solid var(--line);border-top:3px solid var(--brand);border-radius:10px;padding:10px 12px;background:#fff;font-size:13px;line-height:1.5}
+.map div:first-child{border-top-color:var(--sky)}
+.map b{display:block;font-size:14.5px;color:var(--ink)}
 .map span{color:var(--muted)}
-.map.five{grid-template-columns:repeat(5,1fr)}
+.map.four{grid-template-columns:repeat(4,1fr)}
+.map.four div{border-top-color:var(--sky)}
+
+/* 目錄 */
+nav.toc{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);margin:18px -16px 0;padding:8px 16px}
+nav.toc ol{list-style:none;margin:0;padding:0;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
+nav.toc ol::-webkit-scrollbar{display:none}
+nav.toc a{display:block;white-space:nowrap;text-decoration:none;color:var(--muted);font-size:13.5px;padding:5px 11px;border-radius:999px;border:1px solid transparent;transition:background .2s,color .2s}
+nav.toc a:hover{color:var(--ink);background:var(--card)}
+nav.toc a.on{color:var(--brand-deep);background:var(--brand-soft);font-weight:700}
+@media (min-width:1260px){
+  nav.toc{position:fixed;top:90px;left:calc(50% - 440px - 210px);width:190px;margin:0;padding:0;border:0;background:none;backdrop-filter:none}
+  nav.toc ol{flex-direction:column;overflow:visible;border-left:2px solid var(--line)}
+  nav.toc a{border-radius:0 8px 8px 0;margin-left:-2px;border:0;border-left:2px solid transparent;padding:6px 12px}
+  nav.toc a.on{border-left-color:var(--brand);background:var(--brand-tint)}
+}
 
 /* 關卡標題 */
-.part{margin:34px 0 14px;display:flex;align-items:center;gap:14px;border-bottom:3px solid var(--brand);padding-bottom:8px}
-.part .tag{background:var(--brand);color:#fff;border-radius:10px;padding:4px 12px;font-weight:bold;font-size:14px;white-space:nowrap}
-.part h2{margin:0;font-size:22px;line-height:1.35}
-.part .time{margin-left:auto;color:var(--muted);font-size:13px;white-space:nowrap}
-.part-intro{color:var(--muted);margin:-4px 0 12px}
+.part{margin:40px 0 14px;display:flex;align-items:center;gap:14px;padding-bottom:10px;border-bottom:2px solid var(--line);position:relative}
+.part::after{content:"";position:absolute;left:0;bottom:-2px;width:120px;height:2px;background:var(--brand)}
+.pn{width:46px;height:46px;border-radius:50%;border:2px solid var(--brand);color:var(--brand-deep);background:#fff;font-weight:700;font-size:20px;display:grid;place-items:center;flex-shrink:0}
+.part small{display:block;color:var(--brand-deep);font-weight:700;font-size:12.5px;letter-spacing:.08em}
+.part h2{margin:0;font-size:21px;line-height:1.35}
+.part .time{margin-left:auto;color:var(--muted);font-size:13px;white-space:nowrap;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:2px 10px}
+.part.sky .pn{border-color:var(--sky);color:var(--sky-deep)}
+.part.sky small{color:var(--sky-deep)}
+.part.sky::after{background:var(--sky)}
+.part.gray .pn{border-color:#94a3b8;color:var(--muted)}
+.part.gray small{color:var(--muted)}
+.part.gray::after{background:#94a3b8}
+.part-intro{color:var(--muted);margin:-2px 0 12px}
 
 /* 步驟卡 */
-.step{display:grid;grid-template-columns:48px 1fr;gap:14px;padding:14px 0;border-bottom:1px dashed var(--line)}
+.step{display:grid;grid-template-columns:44px 1fr;gap:14px;padding:16px 0;border-bottom:1px dashed var(--line)}
 .step:last-of-type{border-bottom:0}
-.num{width:44px;height:44px;border-radius:50%;background:var(--brand);color:#fff;font-weight:bold;font-size:20px;
-  display:flex;align-items:center;justify-content:center}
-.step h3{margin:6px 0 6px;font-size:17px;line-height:1.4}
+.step > div{min-width:0}
+.num{width:40px;height:40px;border-radius:50%;background:var(--brand);color:#fff;font-weight:700;font-size:18px;display:flex;align-items:center;justify-content:center}
+.num.sky{background:var(--sky)}
+.step h3{margin:6px 0 6px;font-size:17px}
 .step ol{margin:4px 0;padding-left:22px}
 .step ol li{margin:2px 0}
-.note{border-radius:10px;padding:8px 12px;margin:8px 0;font-size:14px;line-height:1.6}
-.note.ok{background:var(--brand-soft)}
-.note.ok::before{content:"✔ 檢查點　";font-weight:bold;color:var(--brand-deep)}
-.note.tip{background:var(--tip-soft)}
-.note.tip::before{content:"💡 小提醒　";font-weight:bold;color:var(--tip)}
-.note.warn{background:var(--warn-soft)}
-.note.ai{background:var(--accent-soft)}
-.note.ai::before{content:"🤖 問 Gemini　";font-weight:bold;color:#174ea6}
-.note.warn::before{content:"⚠️ 注意　";font-weight:bold;color:var(--warn)}
+
+/* 提示框：左色條＋標籤 */
+.note{border-left:4px solid;border-radius:0 10px 10px 0;padding:8px 12px 8px 14px;margin:8px 0;font-size:14.5px;line-height:1.65}
+.note::before{display:inline-block;font-size:12px;font-weight:700;color:#fff;border-radius:999px;padding:0 9px;margin-right:8px;line-height:1.7;vertical-align:1px}
+.note.ok{background:var(--brand-tint);border-color:var(--brand)}
+.note.ok::before{content:"檢查點";background:var(--brand)}
+.note.tip{background:var(--tip-soft);border-color:#eab308}
+.note.tip::before{content:"小提醒";background:var(--tip)}
+.note.warn{background:var(--warn-soft);border-color:#ef4444}
+.note.warn::before{content:"注意";background:var(--warn)}
+.note.ai{background:var(--sky-tint);border-color:var(--sky)}
+.note.ai::before{content:"問 Gemini";background:var(--sky)}
 
 /* 畫面示意 */
-.screen{border:1px solid #c9d1cc;border-radius:10px;overflow:hidden;margin:8px 0;font-size:13px;max-width:520px;background:#fff}
-.screen .bar{background:#eef1ef;padding:4px 10px;color:var(--muted);font-size:12px;display:flex;gap:6px;align-items:center}
-.screen .bar i{width:8px;height:8px;border-radius:50%;background:#c9d1cc;display:inline-block}
+.screen{border:1px solid #cbd5e1;border-radius:10px;overflow:hidden;margin:8px 0;font-size:13px;max-width:520px;background:#fff}
+.screen .bar{background:#f1f5f9;padding:4px 10px;color:var(--muted);font-size:12px;display:flex;gap:6px;align-items:center}
+.screen .bar i{width:8px;height:8px;border-radius:50%;background:#cbd5e1;display:inline-block}
 .screen .body{padding:10px 12px;line-height:1.6}
 .screen table{border-collapse:collapse;width:100%}
 .screen td{border:1px solid var(--line);padding:3px 8px}
 .screen td:first-child{font-family:Consolas,monospace;width:52%}
-.screen .log{font-family:Consolas,monospace;font-size:12px;background:#f8faf9;border-radius:6px;padding:6px 10px;white-space:pre-wrap}
+.screen .log{font-family:Consolas,monospace;font-size:12px;background:var(--card);border-radius:6px;padding:6px 10px;white-space:pre-wrap;word-break:break-all}
 .hl{outline:2px solid var(--warn);outline-offset:2px;border-radius:4px}
 
 /* LINE 對話示意 */
-.chat{background:#8cabd9;border-radius:12px;padding:10px;max-width:340px;margin:8px 0;font-size:13px}
+.chat{background:#c9daf0;border-radius:14px;padding:10px;max-width:340px;margin:8px 0;font-size:13px}
 .bub{background:#fff;border-radius:12px;padding:6px 10px;margin:6px 0;max-width:88%;line-height:1.5}
-.bub.me{background:#b6f39a;margin-left:auto}
+.bub.me{background:#c7f0a9;margin-left:auto}
+
+/* 提示詞框 */
+.prompt{border:1px solid #bae6fd;border-radius:12px;margin:10px 0;overflow:hidden;background:#fff;box-shadow:0 1px 2px rgba(15,23,42,.04)}
+.prompt .ph{display:flex;align-items:center;gap:8px;background:var(--sky-tint);border-bottom:1px solid #bae6fd;color:var(--sky-deep);font-weight:700;font-size:13.5px;padding:6px 8px 6px 12px}
+.prompt .ph .copy{margin-left:auto;cursor:pointer;font:inherit;font-size:12.5px;font-weight:700;color:var(--sky-deep);background:#fff;border:1px solid #7dd3fc;border-radius:7px;padding:3px 12px;min-height:30px;transition:background .2s}
+.prompt .ph .copy:hover{background:var(--sky-soft)}
+.prompt pre{margin:0;padding:10px 14px;white-space:pre-wrap;word-break:break-word;font-family:inherit;font-size:14px;line-height:1.75}
+.fillin{font-style:normal;background:#fef08a;color:#713f12;border-radius:4px;padding:0 3px}
+.vs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:8px 0}
+.vs div{border-radius:12px;padding:10px 14px;font-size:14px;line-height:1.6;border:1px solid}
+.vs .bad{background:var(--warn-soft);border-color:#fecaca}
+.vs .good{background:var(--brand-tint);border-color:#bbf7d0}
+.vs b{display:block}
+.vs span{color:var(--muted)}
+.stage{border:1px solid var(--line);border-radius:14px;padding:4px 16px 12px;margin:14px 0;background:#fff}
+.stage > h3{display:flex;align-items:center;gap:10px;margin:12px 0 4px;font-size:17px}
+.stage > h3 .num{width:32px;height:32px;font-size:15px}
 
 .faq{width:100%;border-collapse:collapse;font-size:14px;margin:8px 0}
 .faq code{word-break:keep-all;white-space:nowrap}
 .faq th,.faq td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top}
 .faq th{background:var(--card)}
 .cmd{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:8px 0}
-.cmd div{border:2px solid var(--brand);border-radius:12px;padding:8px 10px;text-align:center;font-size:13px;line-height:1.4}
-.cmd b{display:block;font-size:17px;color:var(--brand-deep)}
-/* 提示詞範本 */
-.prompt{border:1.5px solid var(--accent);border-radius:12px;margin:10px 0;overflow:hidden;background:#fff}
-.prompt .ph{background:var(--accent-soft);color:#174ea6;font-weight:bold;font-size:13.5px;padding:5px 12px}
-.prompt pre{margin:0;padding:10px 14px;white-space:pre-wrap;word-break:break-word;font-family:"Noto Sans TC","Microsoft JhengHei",sans-serif;font-size:14px;line-height:1.7}
-.fillin{font-style:normal;background:var(--tip-soft);color:var(--tip);border-radius:4px;padding:0 3px}
-.vs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:8px 0}
-.vs div{border-radius:12px;padding:8px 12px;font-size:14px;line-height:1.6}
-.vs .bad{background:var(--warn-soft)}
-.vs .good{background:var(--brand-soft)}
-.vs b{display:block}
-.vs span{color:var(--muted)}
-footer{margin-top:30px;color:var(--muted);font-size:12px;border-top:1px solid var(--line);padding-top:8px}
-.fill{display:inline-block;min-width:220px;border-bottom:1.5px solid var(--ink)}
+.cmd div{border:1px solid var(--line);border-radius:12px;padding:8px 10px;text-align:center;font-size:13px;line-height:1.4;background:#fff}
+.cmd b{display:block;font-size:16px;color:var(--brand-deep)}
+footer{margin-top:34px;color:var(--muted);font-size:12.5px;border-top:1px solid var(--line);padding-top:10px}
 
-@media (max-width:640px){
-  .goal,.prep,.map,.cmd{grid-template-columns:1fr 1fr}
-  .vs{grid-template-columns:1fr}
-  .map.five{grid-template-columns:1fr 1fr}
+@media screen and (max-width:760px){
+  .cover{grid-template-columns:1fr;padding:22px 18px}
+  .cover h1{font-size:28px}
+  .prep,.vs{grid-template-columns:1fr}
+  .map,.map.four,.cmd{grid-template-columns:1fr 1fr}
   .part{flex-wrap:wrap}
-  .part .time{margin-left:0}
+  .part .time{margin-left:60px}
+  .faq code{white-space:normal;word-break:break-all}
+  .faq th,.faq td{padding:6px 7px}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *{transition:none!important}
 }
 @media print{
-  @page{size:A4;margin:13mm 14mm 14mm}
+  @page{size:A4;margin:12mm 13mm 13mm}
   body{font-size:13.5px;-webkit-print-color-adjust:exact;print-color-adjust:exact}
   main{padding:0;max-width:none}
+  nav.toc,.prompt .copy{display:none!important}
+  .cover{grid-template-columns:1fr 270px;padding:16px 20px;gap:18px}
+  .cover .hv{zoom:.64}
+  .cover h1{font-size:28px;margin:8px 0 6px}
+  .cover p.lead{margin-bottom:10px}
+  .goal{gap:6px}
+  .goal div{padding:5px 12px}
+  .prep{margin:12px 0 4px}
+  .map{margin:8px 0}
   .part{break-after:avoid}
   .part.newpage{break-before:page;margin-top:0}
-  .step,.note,.screen,.chat,.panel,.map,.faq tr,.cmd,.prompt,.vs,.keep{break-inside:avoid}
   h3{break-after:avoid}
+  .step,.note,.screen,.chat,.panel,.map,.faq tr,.cmd,.prompt,.vs,.keep,.stage-head{break-inside:avoid}
 }
 </style>
 </head>
 <body>
 <main>
 
-<!-- ================= 封面頁 ================= -->
+<!-- ================= 封面 ================= -->
 <section class="cover">
-  <small>教師研習｜實作講義</small>
-  <h1>60 分鐘，架一個<br>幫你記研習的 LINE 小秘書</h1>
-  <p>研習公告傳給 LINE，它幫你抄進 Google 日曆，時間到了提醒你。全程免費，不用寫程式。</p>
-  <div class="goal">
-    <div><b>① 會架</b>用自己的帳號架好一套</div>
-    <div><b>② 會用</b>現場傳一則公告成功入曆</div>
-    <div><b>③ 會顧</b>知道出錯時去哪裡看</div>
+  <div>
+    <span class="eyebrow">教師研習｜實作講義</span>
+    <h1>60 分鐘，架一個<br>幫你記研習的 <em>LINE 小秘書</em></h1>
+    <p class="lead">研習公告傳給 LINE，它幫你抄進 Google 日曆，時間到了提醒你。全程免費，不用寫程式。</p>
+    <div class="goal">
+      <div><b>① 會架</b>用自己的帳號架好一套</div>
+      <div><b>② 會用</b>現場傳一則公告成功入曆</div>
+      <div><b>③ 會問</b>卡關時知道怎麼請 Gemini 幫忙</div>
+    </div>
   </div>
+  <figure class="hv" role="img" aria-label="示意圖：老師把研習公告傳給 LINE 小秘書，小秘書回覆確認卡片，按入曆後出現在 Google 日曆並在開課前提醒">
+    <div class="hv-phone"><div class="hv-screen">
+      <div class="hv-bar"><i>研</i>研習小秘書</div>
+      <div class="hv-chat">
+        <div class="hv-me">【研習公告】資訊素養增能研習<br>10/15（三）14:00–16:00 線上，研習時數 2 小時，10/8 前報名……</div>
+        <div class="hv-card">
+          <header><small>📋 請確認研習資訊</small><b>💻 資訊素養增能研習</b></header>
+          <dl><dt>時間</dt><dd>10/15（三）14:00–16:00</dd><dt>形式</dt><dd>線上</dd><dt>截止</dt><dd>2026-10-08</dd><dt>時數</dt><dd>2</dd></dl>
+          <div class="hv-btns"><span class="ok">✅ 入曆</span><span>❌ 丟掉</span></div>
+        </div>
+      </div>
+    </div></div>
+    <svg class="hv-arrow" viewBox="0 0 64 40" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8c18 0 34 6 50 22"/><path d="M42 30h13V17"/></svg>
+    <div class="hv-cal">
+      <div class="hv-cal-h"><b>15</b><span>10 月・星期三<br>Google 日曆</span></div>
+      <div class="hv-ev"><div><strong>💻 資訊素養增能研習</strong><span>14:00–16:00・研習</span></div></div>
+      <div class="hv-ev dl"><div><strong>⏰ 報名截止</strong><span>10/8（三）全天</span></div></div>
+      <div class="hv-notif"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>開課前 30 分鐘提醒</div>
+    </div>
+  </figure>
 </section>
 
-<div class="prep">
+<div class="prep" id="prep">
   <div class="panel">
-    <h3>📋 上課前請準備</h3>
+    <h3>上課前請準備</h3>
     <ul class="check">
       <li>筆電一台（用 Chrome 瀏覽器）</li>
       <li>手機，裝好 LINE</li>
@@ -154,7 +235,7 @@ footer{margin-top:30px;color:var(--muted);font-size:12px;border-top:1px solid va
     </ul>
   </div>
   <div class="panel">
-    <h3>📁 程式碼放在 GitHub</h3>
+    <h3>程式碼放在 GitHub</h3>
     <p>只有一個檔 <code>training-bot.gs</code>，第 4 步整個複製貼上：</p>
     <p><code>github.com/u8961310/training-bot</code><br>→ 點 <code>docs</code> 資料夾 → <code>training-bot.gs</code></p>
     <p>講義線上版：<code>u8961310.github.io/training-bot</code></p>
@@ -163,22 +244,35 @@ footer{margin-top:30px;color:var(--muted);font-size:12px;border-top:1px solid va
 </div>
 
 <h3 style="margin:18px 0 0">今天的路線圖</h3>
-<div class="map five">
-  <div><b>第 0 關｜學會問</b>請 Gemini 寫程式、救火<br><span>提示詞・約 5 分</span></div>
+<div class="map">
+  <div><b>第 0 關｜學會問</b>開好 Gemini、學會求救<br><span>步驟 0・約 5 分</span></div>
   <div><b>第 1 關｜拿鑰匙</b>LINE 與 Gemini 各拿一把<br><span>步驟 1–3・約 15 分</span></div>
   <div><b>第 2 關｜搬進家具</b>把程式放進 Google<br><span>步驟 4–7・約 15 分</span></div>
   <div><b>第 3 關｜接上電話線</b>讓 LINE 找得到它<br><span>步驟 8–11・約 15 分</span></div>
   <div><b>第 4 關｜試用</b>傳公告、看日曆<br><span>步驟 12・約 10 分</span></div>
 </div>
-<div class="note tip">打個比方：小秘書要上班，需要一支<strong>電話</strong>（LINE 官方帳號）、一顆<strong>腦袋</strong>（Gemini AI）、一張<strong>辦公桌</strong>（Google Apps Script）。今天就是依序把這三樣準備好，再把電話線接到桌上。</div>
+<div class="note tip">打個比方：小秘書要上班，需要一支<strong>電話</strong>（LINE 官方帳號）、一顆<strong>腦袋</strong>（Gemini AI）、一張<strong>辦公桌</strong>（Google Apps Script）。今天就是依序把這三樣準備好，再把電話線接到桌上。學有餘力，最後的<strong>進階篇</strong>教你用提示詞請 Gemini 從零寫出一支自己的小秘書。</div>
 <div class="note warn">等一下拿到的兩把「鑰匙」（Token、API key）就像家裡鑰匙：<strong>不要拍照上傳、不要貼到群組</strong>。整個過程只貼在你自己的 Google 專案裡。</div>
 
+<nav class="toc" aria-label="講義目錄">
+  <ol>
+    <li><a href="#p0">0 學會問</a></li>
+    <li><a href="#p1">1 拿鑰匙</a></li>
+    <li><a href="#p2">2 搬進家具</a></li>
+    <li><a href="#p3">3 接上電話線</a></li>
+    <li><a href="#p4">4 試用</a></li>
+    <li><a href="#adv">進階｜生出小秘書</a></li>
+    <li><a href="#more">進階｜更多提示詞</a></li>
+    <li><a href="#faq">附錄｜卡關對照</a></li>
+  </ol>
+</nav>
+
 <!-- ================= 第 0 關 ================= -->
-<div class="part newpage"><span class="tag">第 0 關</span><h2>學會問：請 Gemini 當你的程式小老師</h2><span class="time">約 5 分鐘</span></div>
-<p class="part-intro">等一下的 Apps Script（GAS）畫面都是程式碼，看不懂很正常。這一關先學會怎麼請 Gemini 寫程式、解釋程式、幫忙除錯；後面關卡看到 <strong>🤖 問 Gemini</strong>，就是提醒你這時可以拿哪一段提示詞來用。</p>
+<div class="part sky newpage" id="p0"><span class="pn">0</span><div><small>第 0 關</small><h2>學會問：卡關時請 Gemini 當你的程式小老師</h2></div><span class="time">約 5 分鐘</span></div>
+<p class="part-intro">等一下的 Apps Script（GAS）畫面都是程式碼，看不懂很正常。先學會怎麼問 Gemini，後面看到藍色的<strong>「問 Gemini」</strong>框，就是提醒你這時可以拿哪一段提示詞來用。</p>
 
 <div class="step">
-  <div class="num">0</div>
+  <div class="num sky">0</div>
   <div>
     <h3>先開好 Gemini 分頁</h3>
     <ol>
@@ -190,51 +284,21 @@ footer{margin-top:30px;color:var(--muted);font-size:12px;border-top:1px solid va
 </div>
 
 <h3 style="margin:14px 0 4px">好提示詞＝交代代課老師的四句話</h3>
-<div class="map">
+<div class="map four">
   <div><b>① 角色</b>你是誰<br><span>「你是很有耐心的 Apps Script 老師」</span></div>
-  <div><b>② 任務</b>要做什麼<br><span>「幫我寫一支每週寄信的程式」</span></div>
+  <div><b>② 任務</b>要做什麼<br><span>「告訴我這個錯誤怎麼解決」</span></div>
   <div><b>③ 規則</b>哪些不能做<br><span>「我不會寫程式，不確定就說不確定」</span></div>
-  <div><b>④ 格式</b>交回什麼樣子<br><span>「完整程式碼＋一步一行的操作說明」</span></div>
+  <div><b>④ 格式</b>交回什麼樣子<br><span>「一步一行，寫出要點哪個按鈕」</span></div>
 </div>
 <div class="vs">
-  <div class="bad"><b>❌ 太模糊</b>幫我寫一個提醒研習的程式。<br><span>→ 用什麼提醒？提醒誰？什麼時候？Gemini 只能自己猜，寫出來的多半不能用。</span></div>
-  <div class="good"><b>✅ 四句話都有</b>你是 Apps Script 老師，幫我寫一支每週日寄信給自己、列出下週研習的程式，我不會寫程式，請附上一步一步的操作說明。<br><span>→ 寫出來就能照著貼、照著跑。</span></div>
+  <div class="bad"><b>太模糊</b>我的程式壞了怎麼辦？<br><span>→ Gemini 不知道你在哪一步、出了什麼錯，只能給一堆通用建議。</span></div>
+  <div class="good"><b>四句話都有</b>你是 Apps Script 老師，我執行 setup 出現下面的錯誤，我不會寫程式，請一步一步告訴我在畫面上點哪裡。<br><span>→ 回答具體，照著做就好。</span></div>
 </div>
 <div class="note tip">最重要的是第 ③ 句。AI 最常犯的錯是「很有自信地亂編」，先說清楚你的程度、要它不確定就講，能少掉一大半麻煩。</div>
 
 <div class="keep">
-<h3 style="margin:18px 0 4px">GAS 範本 A｜用提示詞產生一支 Apps Script</h3>
-<p>需求講清楚，再加上幾條「安全規則」，Gemini 就能幫你寫出能直接貼上執行的程式：</p>
-<div class="prompt"><div class="ph">✨ 產生 GAS 的提示詞</div><pre>你是 Google Apps Script 老師，我是不會寫程式的國小老師。請幫我寫一支 Apps Script：
-
-【我要做什麼】
-<span class="fillin">每週日晚上 8 點，寄一封 Email 給我自己，列出下週「研習」日曆裡的所有研習（日期、時間、標題）。下週沒有研習就不要寄。</span>
-
-【規則】
-1. 只用 Apps Script 內建功能（例如 CalendarApp、GmailApp），不要用需要 API key 的外部服務。
-2. 會改動的設定（日曆名稱、收件人、寄信時間）集中放在程式最上面，用中文註解說明。
-3. 另外寫一個 test 函式：只把結果印在執行記錄，不寄信、不刪除任何東西，讓我先測試。
-4. 每一段加中文註解。
-
-【交回格式】
-1. 完整程式碼（一整段，我會全選貼上）。
-2. 一步一行的操作說明：貼在哪、先執行哪個函式、怎麼設定每週自動執行的觸發器。
-3. 執行時 Google 會要求哪些權限，各是做什麼用的。</pre></div>
-</div>
-<div class="panel">
-  <h3>程式寫好之後，照後面關卡的做法跑起來</h3>
-  <ul>
-    <li><strong>貼進 Apps Script</strong>：新專案 → 全選刪掉預設程式 → 貼上 → 存檔，跟<strong>第 4 步</strong>一模一樣</li>
-    <li><strong>先跑 test 函式</strong>：下拉選單選 test 開頭的函式 → 執行 → 授權，跟<strong>第 6、7 步</strong>一樣</li>
-    <li><strong>有紅字</strong>：用範本 B 把錯誤貼回<strong>同一段對話</strong>，請它給修正後的完整新版</li>
-    <li><strong>想改功能</strong>：接著說「改成寄到另一個信箱」「多列出地點」，改好<strong>整段重貼</strong>，不要只貼一半</li>
-  </ul>
-</div>
-<div class="note warn">授權畫面看一眼它要的權限：只是寄信給自己，卻要「刪除雲端硬碟檔案」這種不相關的權限，就先別按允許，回去問 Gemini 為什麼需要。<strong>會刪除、會大量寄信給別人的程式，一定要先用 test 函式跑過。</strong></div>
-
-<div class="keep">
-<h3 style="margin:18px 0 4px">GAS 範本 B｜卡關了，貼錯誤訊息求救</h3>
-<div class="prompt"><div class="ph">🆘 執行出現紅字時用（第 6、7 步最常遇到）</div><pre>你是很有耐心的 Google Apps Script 老師，我是完全不會寫程式的國小老師。
+<h3 style="margin:18px 0 4px">求救提示詞｜執行出現紅字時</h3>
+<div class="prompt"><div class="ph">求救提示詞（第 6、7 步最常用到）</div><pre>你是很有耐心的 Google Apps Script 老師，我是完全不會寫程式的老師。
 我在 Apps Script 執行「<span class="fillin">setup</span>」函式時出現下面的錯誤。
 
 請你：
@@ -249,30 +313,16 @@ footer{margin-top:30px;color:var(--muted);font-size:12px;border-top:1px solid va
 <div class="note warn">貼給 Gemini 之前看一眼：<strong>錯誤訊息裡如果有 Token、<code>AIza…</code> 開頭的 key，先刪掉</strong>再貼。鑰匙只放在指令碼屬性，不給任何人，AI 也一樣。</div>
 
 <div class="keep">
-<h3 style="margin:18px 0 4px">GAS 範本 C｜看懂一段程式在做什麼</h3>
-<div class="prompt"><div class="ph">🔍 好奇某個函式在做什麼時用</div><pre>你是 Google Apps Script 老師。下面是一段程式，請用國小老師聽得懂的話，
+<h3 style="margin:18px 0 4px">解說提示詞｜想看懂一段程式</h3>
+<div class="prompt"><div class="ph">解說提示詞</div><pre>你是 Google Apps Script 老師。下面是一段程式，請用老師聽得懂的話，
 分段說明每一塊在做什麼，每段不超過兩句。只要解釋，不要修改程式。
 
 <span class="fillin">（在 Apps Script 反白一個函式，例如 function setup() { … } 整段，複製貼上）</span></pre></div>
 </div>
-
-<div class="keep">
-<h3 style="margin:18px 0 4px">GAS 範本 D｜想改設定，先問該改哪裡</h3>
-<div class="prompt"><div class="ph">🛠️ 架好之後想調整時用</div><pre>你是 Google Apps Script 老師。下面是我這支程式最上面的設定說明。
-我想要<span class="fillin">把每天早報改到 6:30 發送</span>。
-
-請先讀設定說明再回答：
-1. 能不能只改「指令碼屬性」就做到？能的話，告訴我屬性名稱和要填的值。
-2. 改完還要不要重新執行哪個函式、或重新部署？
-3. 如果一定要改程式碼，先告訴我會改到哪裡、有什麼風險，等我同意再給程式碼。
-
----- 設定說明 ----
-<span class="fillin">（貼上 training-bot.gs 最上面 /** 設定都放「指令碼屬性」… */ 那一整段註解）</span></pre></div>
-</div>
-<div class="note ok">以早報時間為例，正確答案是：指令碼屬性加 <code>DIGEST_HOUR</code> = 6、<code>DIGEST_MINUTE</code> = 30，再執行一次 <code>setupTrigger</code>，不用改程式碼。拿這題試試 Gemini 答得對不對。</div>
+<div class="note tip">想改早報時間、請 Gemini 寫新工具，或用提示詞從零生出一支小秘書，都在最後的<strong>進階篇</strong>。</div>
 
 <!-- ================= 第 1 關 ================= -->
-<div class="part newpage"><span class="tag">第 1 關</span><h2>拿鑰匙：幫小秘書辦電話、裝腦袋</h2><span class="time">約 15 分鐘</span></div>
+<div class="part newpage" id="p1"><span class="pn">1</span><div><small>第 1 關</small><h2>拿鑰匙：幫小秘書辦電話、裝腦袋</h2></div><span class="time">約 15 分鐘</span></div>
 
 <div class="step">
   <div class="num">1</div>
@@ -319,7 +369,7 @@ footer{margin-top:30px;color:var(--muted);font-size:12px;border-top:1px solid va
 </div>
 
 <!-- ================= 第 2 關 ================= -->
-<div class="part"><span class="tag">第 2 關</span><h2>搬進家具：把程式放進 Google Apps Script</h2><span class="time">約 15 分鐘</span></div>
+<div class="part" id="p2"><span class="pn">2</span><div><small>第 2 關</small><h2>搬進家具：把程式放進 Google Apps Script</h2></div><span class="time">約 15 分鐘</span></div>
 <p class="part-intro">Apps Script 是 Google 免費提供的「雲端小電腦」，程式放上去就會 24 小時待命，不用開著你的電腦。</p>
 
 <div class="step">
@@ -335,7 +385,7 @@ footer{margin-top:30px;color:var(--muted);font-size:12px;border-top:1px solid va
       <li>按 <span class="kbd">Ctrl</span>+<span class="kbd">S</span> 存檔</li>
     </ol>
     <div class="note ok">第一行是 <code>// ===== Config.js =====</code>，存檔後沒有跳出紅色錯誤訊息。</div>
-    <div class="note ai">小秘書的程式是寫好的，直接複製就好。以後用<strong>範本 A</strong> 請 Gemini 寫的新程式，也是照這一步貼進新專案。</div>
+    <div class="note ai">這支程式是寫好的完整版，今天直接複製就好。想知道怎麼用提示詞請 Gemini 從零寫出來，看<a href="#adv">進階篇</a>。</div>
   </div>
 </div>
 
@@ -375,7 +425,7 @@ footer{margin-top:30px;color:var(--muted);font-size:12px;border-top:1px solid va
 早報觸發器：每天 7:30 左右
 ⚠️ 還沒設定：ALLOWED_USER_IDS</div></div></div>
     <div class="note ok">看到上面五行就對了。最後一行的 ⚠️ <strong>是正常的</strong>，第 11 步才會補上。</div>
-    <div class="note ai">想知道 <code>setup</code> 到底做了什麼？在編輯區反白整個 <code>function setup() { … }</code>，用<strong>範本 C</strong> 請 Gemini 解釋。執行跳紅字就用<strong>範本 B</strong>。</div>
+    <div class="note ai">想知道 <code>setup</code> 到底做了什麼？在編輯區反白整個 <code>function setup() { … }</code>，用<strong>解說提示詞</strong>請 Gemini 解釋。執行跳紅字就用<strong>求救提示詞</strong>。</div>
   </div>
 </div>
 
@@ -389,12 +439,12 @@ footer{margin-top:30px;color:var(--muted);font-size:12px;border-top:1px solid va
     </ol>
     <div class="note ok">記錄裡出現一段有 <code>"title"</code>、<code>"date"</code>（9 月 28 日）、<code>"start": "19:00"</code> 的文字，就代表 Gemini 讀得懂公告。</div>
     <div class="note warn">如果出現 <code>API key not valid</code>：回第 5 步檢查 <code>GEMINI_API_KEY</code> 有沒有貼完整、前後有沒有多空白。</div>
-    <div class="note ai">出現其他紅字看不懂？用<strong>範本 B</strong>，把執行記錄的紅字貼給 Gemini（先刪掉裡面的鑰匙）。</div>
+    <div class="note ai">出現其他紅字看不懂？用<strong>求救提示詞</strong>，把執行記錄的紅字貼給 Gemini（先刪掉裡面的鑰匙）。</div>
   </div>
 </div>
 
 <!-- ================= 第 3 關 ================= -->
-<div class="part"><span class="tag">第 3 關</span><h2>接上電話線：讓 LINE 找得到小秘書</h2><span class="time">約 15 分鐘</span></div>
+<div class="part" id="p3"><span class="pn">3</span><div><small>第 3 關</small><h2>接上電話線：讓 LINE 找得到小秘書</h2></div><span class="time">約 15 分鐘</span></div>
 
 <div class="step">
   <div class="num">8</div>
@@ -456,7 +506,7 @@ footer{margin-top:30px;color:var(--muted);font-size:12px;border-top:1px solid va
 </div>
 
 <!-- ================= 第 4 關 ================= -->
-<div class="part"><span class="tag">第 4 關</span><h2>試用：傳第一則公告，看它進日曆</h2><span class="time">約 10 分鐘</span></div>
+<div class="part" id="p4"><span class="pn">4</span><div><small>第 4 關</small><h2>試用：傳第一則公告，看它進日曆</h2></div><span class="time">約 10 分鐘</span></div>
 
 <div class="step">
   <div class="num">12</div>
@@ -493,7 +543,7 @@ footer{margin-top:30px;color:var(--muted);font-size:12px;border-top:1px solid va
   <tr><td>開課前 30 分鐘</td><td>手機 Google 日曆跳通知，點開就有地址或會議連結</td></tr>
   <tr><td>當天早上 7:30 左右</td><td>LINE 早報：今天的研習，附上明天的和 3 天內報名截止的。<strong>當天沒研習就不發</strong>（假日也一樣）</td></tr>
 </table>
-<div class="note ai">想把早報改成別的時間、提醒提早 1 小時？用<strong>範本 D</strong> 問該改哪個設定。想要小秘書沒有的功能（例如每週日寄一封下週研習清單）？用<strong>範本 A</strong> 請 Gemini 另外寫一支。</div>
+<div class="note ai">想把早報改成別的時間、提醒提早 1 小時？用進階篇的<strong>改設定提示詞</strong>問該改哪裡。</div>
 
 <h3 style="margin:18px 0 4px">隨時可以問它（不花推播額度，想問幾次都行）</h3>
 <div class="cmd">
@@ -503,13 +553,198 @@ footer{margin-top:30px;color:var(--muted);font-size:12px;border-top:1px solid va
   <div><b>說明</b>用法提示</div>
 </div>
 
-<!-- ================= 加碼：提示詞 ================= -->
-<div class="part newpage"><span class="tag">加碼</span><h2>沒架小秘書也能用：在 Gemini／ChatGPT 下提示詞</h2><span class="time">回家延伸</span></div>
-<p class="part-intro">小秘書的腦袋，其實就是一段事先寫好的「提示詞」。用第 0 關學的四句話，打開 Gemini 或 ChatGPT 網頁一樣能幫你整理研習、摘要講義、寫心得。</p>
+<!-- ================= 進階：生出小秘書 ================= -->
+<div class="part sky newpage" id="adv"><span class="pn">+</span><div><small>進階篇・第二堂課或回家練習</small><h2>用提示詞，請 Gemini 從零生出一支小秘書</h2></div><span class="time">約 60 分鐘</span></div>
+<p class="part-intro">今天複製的 <code>training-bot.gs</code> 有將近 900 行，一段提示詞叫 Gemini 一次寫完不切實際。訣竅是<strong>先講好共同規格，再分 4 段慢慢加</strong>，每一段都能跑、都有檢查點，壞了也知道壞在哪一段。</p>
 
-<h3 style="margin:18px 0 4px">範本 1｜研習公告 → 整理成資訊表（兩邊都能用）</h3>
-<p>整段複製貼上，<span class="fillin">黃底</span>的地方換成你的內容。公告是圖片或 PDF 的話，直接把檔案一起丟進去。</p>
-<div class="prompt"><div class="ph">📋 複製這段</div><pre>你是學校教務處的行政助理。請把下面的研習公告整理成表格。
+<div class="panel">
+  <h3>開始前準備（跟主線共用鑰匙，但另開一個專案）</h3>
+  <ol>
+    <li><code>script.google.com</code> → <span class="btn">新專案</span>，改名「小秘書（自己生）」；專案設定的時區一樣改成台北</li>
+    <li>指令碼屬性照第 5 步加 <code>LINE_CHANNEL_ACCESS_TOKEN</code>、<code>GEMINI_API_KEY</code>，<strong><code>ALLOWED_USER_IDS</code> 先不要填</strong>，第 1 段要用設定模式測試</li>
+    <li>Gemini 開一段<strong>新對話</strong>，4 段提示詞都在<strong>同一段對話</strong>裡接著貼，它才記得前面寫過什麼</li>
+  </ol>
+</div>
+<div class="note warn">一個 LINE 官方帳號只能接一個 Webhook 網址。練習時把 Webhook 換成新專案的網址，主線的小秘書會暫停；練完記得換回第 8 步的網址。想兩支同時用，就再開一個 LINE 官方帳號。</div>
+
+<div class="keep">
+<h3 style="margin:18px 0 4px">每一段貼好之後：更新部署</h3>
+<div class="panel">
+  <p>主線只部署一次，但這裡每段都會改程式，<strong>改完要發布新版本，LINE 才會用到新程式</strong>：</p>
+  <ol>
+    <li>第一次（第 1 段）：照第 8 步 <span class="menu">新增部署作業</span>，再照第 9 步把新網址填進 LINE Webhook</li>
+    <li>之後每段：<span class="btn">部署</span> → <span class="menu">管理部署作業</span> → 右上鉛筆（編輯）→ 版本選 <span class="menu">新版本</span> → <span class="btn">部署</span>。網址不會變，LINE 不用重設</li>
+  </ol>
+</div>
+</div>
+
+<div class="keep">
+<h3 style="margin:18px 0 4px">共同規格｜第一則先貼這段</h3>
+<div class="prompt"><div class="ph">共同規格提示詞</div><pre>你是 Google Apps Script 老師，我是不會寫程式的老師。接下來我會分 4 段，請你幫我寫一支「研習 LINE 小秘書」：
+老師把研習公告傳給 LINE 官方帳號，AI 整理成卡片，按確認後寫進 Google 日曆，並在早上提醒。
+這一則先不要寫程式，記住下面的共同規格，回我「了解」就好。
+
+【共同規格】
+1. 全部寫在同一個 .gs 檔，不使用外部函式庫。
+2. 金鑰和設定一律從「指令碼屬性」讀，絕對不可以寫在程式碼裡。屬性名稱固定：
+   LINE_CHANNEL_ACCESS_TOKEN、GEMINI_API_KEY、ALLOWED_USER_IDS（多個用半形逗號分隔）、CALENDAR_ID、SHEET_ID
+3. 時區一律 Asia/Taipei。
+4. 這些函式名稱固定、一字不差：doGet、doPost、lineReply、geminiExtract、testExtract、setup、dailyDigest、setupTrigger。
+5. 回覆 LINE 用 reply API（https://api.line.me/v2/bot/message/reply）；只有 dailyDigest 可以用 push API。
+6. 每一段都在前一段的程式上「增加功能」，每次都給我「完整的程式碼」，我會全選覆蓋貼上。
+7. 每一段加中文註解，重要步驟用 console.log 印出進度。</pre></div>
+</div>
+
+<div class="stage">
+  <h3><span class="num sky">1</span>第 1 段｜骨架：接上 LINE、擋住陌生人</h3>
+  <div class="prompt"><div class="ph">第 1 段提示詞</div><pre>【第 1 段：骨架】請照共同規格寫：
+1. doGet：瀏覽器打開網址時，回傳純文字「training-bot OK」。
+2. doPost：接收 LINE Messaging API 的 webhook，逐一處理 events；不管成功失敗，最後都回傳文字「OK」。錯誤用 console.error 記錄，不要讓程式整個停掉。
+3. lineReply(replyToken, messages)：共用的回覆函式，messages 可以是一則或多則。
+4. 白名單：讀 ALLOWED_USER_IDS。
+   - 如果是空的：不論對方傳什麼，都回覆
+     「🔧 設定模式
+     你的 userId：
+     （對方的 userId）
+
+     把它填進指令碼屬性 ALLOWED_USER_IDS 就能開始用。」
+   - 不在名單裡：不回覆，直接忽略。
+   - 在名單裡：先回覆「收到：」加上對方傳的文字（之後的段落會換成真正的功能）。</pre></div>
+  <div class="note ok">貼上存檔 → 照第 8 步部署、第 9 步換 Webhook → 瀏覽器開網址看到 <code>training-bot OK</code> → LINE 傳「你好」收到「🔧 設定模式」→ 把 userId 填進 <code>ALLOWED_USER_IDS</code> → 再傳「測試」收到「收到：測試」。</div>
+</div>
+
+<div class="stage">
+  <h3><span class="num sky">2</span>第 2 段｜腦袋：請 Gemini 讀懂公告</h3>
+  <div class="prompt"><div class="ph">第 2 段提示詞</div><pre>【第 2 段：腦袋】請在目前的程式上加入：
+1. 程式最上面加常數 GEMINI_MODEL = 'gemini-3.5-flash-lite'，不要自己改成別的模型名稱。
+2. geminiExtract(text)：用 UrlFetchApp 呼叫
+   https://generativelanguage.googleapis.com/v1beta/models/（GEMINI_MODEL）:generateContent
+   金鑰放在 header「x-goog-api-key」。temperature 設 0，用 responseMimeType: 'application/json' 搭配 responseSchema，讓它只回 JSON。
+   欄位：is_training（是不是研習公告）、title、sessions（陣列，每場有 date：YYYY-MM-DD、start：HH:mm、end：HH:mm）、
+   mode（onsite／online／hybrid／unknown）、location、online_url、register_url、register_deadline（YYYY-MM-DD）、hours、notes、confidence（0～1，對日期時間的信心）。
+3. 給 Gemini 的指示要包含：今天的日期（台北時間），用來推算沒寫年份的日期；民國年加 1911 換成西元年；
+   原文沒寫的欄位一律 null，禁止推測，尤其是結束時間和網址；網址只能照抄原文；多天或多場次每場各一筆 sessions。
+4. testExtract()：用下面這段範例公告呼叫 geminiExtract，把結果用 console.log(JSON.stringify(結果, null, 2)) 印出來：
+   「中秋節 & 教師節 教師AI 底層能力雙講堂　講師：數位敘事力期刊 吳奇　9/28（一）19:00　直播連結在貼文留言區」
+5. 白名單內的人傳文字時，改成：呼叫 geminiExtract，暫時用文字回覆研習名稱和每一場的日期時間；
+   is_training 是 false 或沒有場次，就回「🤔 看不出研習的日期時間。」</pre></div>
+  <div class="note ok">貼上存檔 → 下拉選單選 <code>testExtract</code> 執行（第一次會要授權）→ 記錄出現 <code>"title"</code>、<code>"date"</code>（9 月 28 日）、<code>"start": "19:00"</code> → 更新部署新版本 → LINE 傳一則公告，收到研習名稱和日期時間。</div>
+</div>
+
+<div class="stage">
+  <h3><span class="num sky">3</span>第 3 段｜入曆：確認卡片＋寫進日曆</h3>
+  <div class="prompt"><div class="ph">第 3 段提示詞</div><pre>【第 3 段：入曆】請在目前的程式上加入：
+1. setup()：
+   - 沒有 CALENDAR_ID 就建立名為「研習」的日曆（時區 Asia/Taipei），把 id 存回指令碼屬性，console.log「已建立日曆：研習」。
+   - 沒有 SHEET_ID 就建立試算表「研習小秘書資料」，第一列表頭：id、created_at、status、title、hours、data_json，
+     把 id 存回指令碼屬性，console.log「已建立試算表：」加網址。
+   - 最後檢查 LINE_CHANNEL_ACCESS_TOKEN、GEMINI_API_KEY、ALLOWED_USER_IDS，有缺的用「⚠️ 還沒設定：」列出，都有就印「✅ 設定完成」。
+2. 收到公告 → geminiExtract → 在試算表新增一列（status = pending，完整結果存在 data_json）→ 回覆一張 Flex Message 確認卡片：
+   - 上方小字「📋 請確認研習資訊」，下面是研習名稱，名稱前加圖示：實體 🏫、線上 💻、混合 🔀、不明 📌
+   - 內容列出時間、形式、地點、報名截止、時數，沒有的欄位就不顯示
+   - confidence 小於 0.7 時，加一行紅字「⚠️ 日期時間信心偏低，請對照原文」
+   - 底部兩個 postback 按鈕：「✅ 入曆」（data：action=confirm&id=這一列的 id）、「❌ 丟掉」（data：action=discard&id=這一列的 id）
+3. 處理 postback：
+   - confirm：每一場在「研習」日曆建立事件，標題是圖示加研習名稱；沒寫結束時間就先抓 2 小時；每個事件設開始前 30 分鐘跳通知；
+     有報名截止日就另外建全天事件「⏰ 報名截止：研習名稱」。status 改 confirmed，回覆「✅ 已寫進「研習」日曆：研習名稱」。
+   - discard：status 改 discarded，回覆「🗑️ 已丟掉：研習名稱」。
+   - 同一筆已經處理過，就回覆「這筆已經處理過了」，不要重複寫入。</pre></div>
+  <div class="note ok">貼上存檔 → 執行 <code>setup</code>（會再要一次授權），記錄出現「已建立日曆：研習」「已建立試算表」→ 更新部署新版本 → LINE 傳公告收到確認卡片 → 按 ✅ → Google 日曆出現事件和報名截止。</div>
+  <div class="note tip">不想多一本「研習」日曆？執行 <code>setup</code> 前，先把主線專案指令碼屬性裡的 <code>CALENDAR_ID</code> 複製到新專案，它就會沿用同一本。</div>
+</div>
+
+<div class="stage">
+  <h3><span class="num sky">4</span>第 4 段｜提醒與指令</h3>
+  <div class="prompt"><div class="ph">第 4 段提示詞</div><pre>【第 4 段：提醒與指令】請在目前的程式上加入：
+1. 文字指令，一律用 reply 回覆（不耗推播額度）：
+   - 「本週」：列出「研習」日曆未來 7 天的研習（不含「⏰ 報名截止」事件），每行「M/d（星期幾）HH:mm 標題」，沒有就回「（沒有）」
+   - 「下一場」：半年內最近一場研習的時間、標題、地點
+   - 「時數」：從這個學年的 8 月 1 日起（1～7 月問的話，就從前一年的 8 月 1 日算），試算表中 status = confirmed 的研習時數加總
+   - 「說明」：列出以上用法
+2. dailyDigest()：今天「研習」日曆有研習才推播（假日也一樣），沒有就什麼都不做。
+   內容：「☀️ 研習早報」、今天的研習、明天的研習、3 天內的報名截止。推播給 ALLOWED_USER_IDS 裡的每一個人。
+3. setupTrigger()：先刪掉舊的 dailyDigest 觸發器，再建立每天 7 點 30 分左右執行 dailyDigest 的觸發器（時區 Asia/Taipei），
+   console.log「早報觸發器：每天 7:30 左右」。setup() 的最後也呼叫 setupTrigger()。</pre></div>
+  <div class="note ok">貼上存檔 → 執行 <code>setupTrigger</code>，記錄出現「早報觸發器」→ 更新部署新版本 → LINE 輸入「本週」「時數」都有回覆。想馬上看早報長怎樣，在當天有研習時直接執行 <code>dailyDigest</code>。</div>
+</div>
+
+<div class="keep">
+<h3 style="margin:18px 0 4px">整合檢查｜4 段都做完後貼一次</h3>
+<div class="prompt"><div class="ph">整合檢查提示詞</div><pre>下面是我目前完整的程式。請幫我檢查，先不要重寫：
+1. 有沒有同名的函式（重複定義時，後面的會蓋掉前面的）。
+2. 共同規格第 4 點的函式是不是都在、名稱一字不差。
+3. 有沒有把金鑰直接寫在程式碼裡。
+4. 有沒有在 dailyDigest 以外的地方用了 push API。
+有問題的話，列出「在哪個函式、為什麼、要改成什麼」，等我同意再給修改後的完整程式。
+
+---- 程式碼 ----
+<span class="fillin">（在 Apps Script 按 Ctrl+A 全選、複製貼上）</span></pre></div>
+</div>
+
+<h3 style="margin:18px 0 4px">自己生的版本和今天的完整版差在哪</h3>
+<table class="faq">
+  <tr><th style="width:30%">功能</th><th style="width:30%">4 段提示詞版</th><th>完整版 <code>training-bot.gs</code></th></tr>
+  <tr><td>文字公告 → 卡片 → 入曆</td><td>有</td><td>有</td></tr>
+  <tr><td>截圖辨識公告</td><td>沒有（可以再請 Gemini 加）</td><td>有</td></tr>
+  <tr><td>早報</td><td>有</td><td>有，推播額度快用完時自動改寄 Email</td></tr>
+  <tr><td>研習講義收納</td><td>沒有</td><td>有，存進雲端硬碟＋<code>講義 關鍵字</code> 查詢</td></tr>
+  <tr><td>「對方正在輸入」動畫</td><td>沒有</td><td>有</td></tr>
+</table>
+<div class="note tip">Gemini 每次寫出來的程式都不太一樣，<strong>跟別人的長得不同很正常</strong>，檢查點有過就好。某一段一直卡住，把錯誤訊息用<strong>求救提示詞</strong>貼回<strong>同一段對話</strong>；真的救不回來，也可以拿完整版裡同名的函式來對照（用<strong>解說提示詞</strong>請 Gemini 說明差在哪）。</div>
+
+<!-- ================= 進階：更多提示詞 ================= -->
+<div class="part sky newpage" id="more"><span class="pn">+</span><div><small>進階篇</small><h2>更多提示詞：調整小秘書、寫小工具、整理研習</h2></div><span class="time">隨時查</span></div>
+
+<div class="keep">
+<h3 style="margin:14px 0 4px">改設定提示詞｜想調整小秘書時</h3>
+<div class="prompt"><div class="ph">改設定提示詞</div><pre>你是 Google Apps Script 老師。下面是我這支程式最上面的設定說明。
+我想要<span class="fillin">把每天早報改到 6:30 發送</span>。
+
+請先讀設定說明再回答：
+1. 能不能只改「指令碼屬性」就做到？能的話，告訴我屬性名稱和要填的值。
+2. 改完還要不要重新執行哪個函式、或重新部署？
+3. 如果一定要改程式碼，先告訴我會改到哪裡、有什麼風險，等我同意再給程式碼。
+
+---- 設定說明 ----
+<span class="fillin">（貼上 training-bot.gs 最上面 /** 設定都放「指令碼屬性」… */ 那一整段註解）</span></pre></div>
+</div>
+<div class="note ok">以早報時間為例，正確答案是：指令碼屬性加 <code>DIGEST_HOUR</code> = 6、<code>DIGEST_MINUTE</code> = 30，再執行一次 <code>setupTrigger</code>，不用改程式碼。拿這題試試 Gemini 答得對不對。</div>
+
+<div class="keep">
+<h3 style="margin:18px 0 4px">小工具提示詞｜請 Gemini 寫一支新的 Apps Script</h3>
+<p>需求講清楚，再加上幾條安全規則，就能請 Gemini 寫出小秘書沒有的功能：</p>
+<div class="prompt"><div class="ph">小工具提示詞（範例：每週研習清單）</div><pre>你是 Google Apps Script 老師，我是不會寫程式的老師。請幫我寫一支 Apps Script：
+
+【我要做什麼】
+<span class="fillin">每週日晚上 8 點，寄一封 Email 給我自己，列出下週「研習」日曆裡的所有研習（日期、時間、標題）。下週沒有研習就不要寄。</span>
+
+【規則】
+1. 只用 Apps Script 內建功能（例如 CalendarApp、GmailApp），不要用需要 API key 的外部服務。
+2. 會改動的設定（日曆名稱、收件人、寄信時間）集中放在程式最上面，用中文註解說明。
+3. 另外寫一個 test 函式：只把結果印在執行記錄，不寄信、不刪除任何東西，讓我先測試。
+4. 每一段加中文註解。
+
+【交回格式】
+1. 完整程式碼（一整段，我會全選貼上）。
+2. 一步一行的操作說明：貼在哪、先執行哪個函式、怎麼設定每週自動執行的觸發器。
+3. 執行時 Google 會要求哪些權限，各是做什麼用的。</pre></div>
+</div>
+<div class="panel">
+  <h3>程式寫好之後</h3>
+  <ul>
+    <li><strong>貼進 Apps Script</strong>：新專案 → 全選刪掉預設程式 → 貼上 → 存檔，跟第 4 步一樣</li>
+    <li><strong>先跑 test 函式</strong>：下拉選單選 test 開頭的函式 → 執行 → 授權，跟第 6、7 步一樣</li>
+    <li><strong>有紅字</strong>：用求救提示詞把錯誤貼回<strong>同一段對話</strong>，請它給修正後的完整新版</li>
+    <li><strong>想改功能</strong>：接著說「改成寄到另一個信箱」「多列出地點」，改好<strong>整段重貼</strong>，不要只貼一半</li>
+  </ul>
+</div>
+<div class="note warn">授權畫面看一眼它要的權限：只是寄信給自己，卻要「刪除雲端硬碟檔案」這種不相關的權限，就先別按允許，回去問 Gemini 為什麼需要。<strong>會刪除、會大量寄信給別人的程式，一定要先用 test 函式跑過。</strong></div>
+
+<h3 style="margin:22px 0 4px">沒架小秘書也能用：直接在 Gemini／ChatGPT 整理研習</h3>
+<p>小秘書的腦袋，其實就是一段事先寫好的提示詞。下面這幾段直接貼到 Gemini 或 ChatGPT 網頁就能用，<span class="fillin">黃底</span>的地方換成你的內容；公告是圖片或 PDF 的話，把檔案一起丟進去。</p>
+
+<div class="keep">
+<div class="prompt"><div class="ph">公告整理提示詞（兩邊都能用）</div><pre>你是學校教務處的行政助理。請把下面的研習公告整理成表格。
 
 規則：
 1. 今天是 <span class="fillin">2026 年 10 月 1 日</span>，公告沒寫年份就用這個推算；民國年請換成西元年。
@@ -521,30 +756,35 @@ footer{margin-top:30px;color:var(--muted);font-size:12px;border-top:1px solid va
 
 ---- 公告全文 ----
 <span class="fillin">（貼上公告）</span></pre></div>
+</div>
 <div class="note ok">整理好之後，<strong>對照原公告看一次日期和時間</strong>，跟按小秘書的 ✅ 前一樣。</div>
 
-<h3 style="margin:18px 0 4px">範本 2｜Gemini 直接幫你寫進 Google 日曆</h3>
+<div class="keep">
+<h3 style="margin:18px 0 4px">寫進日曆提示詞（Gemini 限定）</h3>
 <ol style="margin:4px 0;padding-left:22px">
   <li>開 <code>gemini.google.com</code>，用<strong>個人 Gmail</strong> 登入（跟日曆同一個帳號）</li>
   <li>第一次用先到 <span class="menu">設定</span> → <span class="menu">應用程式</span>，確認 Google Workspace（含日曆）是開啟的</li>
-  <li>貼上範本 1 的結果或公告原文，再接著輸入：</li>
+  <li>貼上公告整理的結果或公告原文，再接著輸入：</li>
 </ol>
-<div class="prompt"><div class="ph">📅 接著輸入</div><pre>@Google 日曆 把上面這場研習加到我的「<span class="fillin">研習</span>」日曆，
+<div class="prompt"><div class="ph">寫進日曆提示詞</div><pre>@Google 日曆 把上面這場研習加到我的「<span class="fillin">研習</span>」日曆，
 標題用研習名稱，說明欄放地點或會議連結。
 報名截止那天另外加一個全天事件，標題是「⏰ 報名截止：研習名稱」。
 加之前先列出你要建立的內容讓我確認。</pre></div>
-<div class="note tip">最後一句「先列出來讓我確認」很好用：它會先給你看，你回「好」才真的寫進去。日曆名稱填你自己有的那本，沒有就寫「主要日曆」。</div>
-<div class="note warn">ChatGPT 沒辦法直接寫進你的 Google 日曆：用範本 1 整理好之後，自己到日曆新增就好。</div>
+</div>
+<div class="note tip">最後一句「先列出來讓我確認」很好用：它會先給你看，你回「好」才真的寫進去。ChatGPT 沒辦法直接寫進 Google 日曆，整理好之後自己新增就好。</div>
 
-<h3 style="margin:18px 0 4px">範本 3｜研習講義 → 重點摘要＋帶回教室</h3>
-<div class="prompt"><div class="ph">📚 上傳講義 PDF 或簡報截圖，再貼這段</div><pre>你是有 10 年經驗的<span class="fillin">國小</span>老師。請讀完這份研習講義，幫我：
+<div class="keep">
+<h3 style="margin:18px 0 4px">講義摘要提示詞｜研習講義 → 重點＋帶回教室</h3>
+<div class="prompt"><div class="ph">講義摘要提示詞（先上傳講義 PDF 或簡報截圖）</div><pre>你是有 10 年經驗的<span class="fillin">國小</span>老師。請讀完這份研習講義，幫我：
 1. 用 5 點條列講義重點，每點不超過 30 字。
 2. 設計 2 個可以在<span class="fillin">五年級</span>課堂用的活動，每個 15 分鐘內完成，寫出步驟和需要的材料。
 3. 列出講義提到、但我還要自己查的名詞或工具。
 只根據講義內容回答；講義沒提到、你另外補充的，請標註「延伸建議」。</pre></div>
+</div>
 
-<h3 style="margin:18px 0 4px">範本 4｜研習心得／回饋單草稿</h3>
-<div class="prompt"><div class="ph">✍️ 先寫三句自己的感想，再貼這段</div><pre>幫我把下面的筆記寫成約 <span class="fillin">300 字</span>的研習心得，語氣自然、像老師自己寫的，
+<div class="keep">
+<h3 style="margin:18px 0 4px">心得提示詞｜研習心得／回饋單草稿</h3>
+<div class="prompt"><div class="ph">心得提示詞（先寫三句自己的感想）</div><pre>幫我把下面的筆記寫成約 <span class="fillin">300 字</span>的研習心得，語氣自然、像老師自己寫的，
 不要加入我沒提到的經驗或數據。
 
 研習名稱：<span class="fillin">資訊素養增能研習</span>
@@ -552,31 +792,32 @@ footer{margin-top:30px;color:var(--muted);font-size:12px;border-top:1px solid va
 - 印象最深：<span class="fillin">……</span>
 - 我想試試：<span class="fillin">……</span>
 - 還有疑問：<span class="fillin">……</span></pre></div>
+</div>
 <div class="note tip">一定要先給<strong>自己的</strong>三句話。什麼都不給，AI 就會寫出一篇誰都能交的「罐頭心得」。</div>
 
-<div style="break-inside:avoid">
+<div class="keep">
 <h3 style="margin:18px 0 4px">Gemini 和 ChatGPT 怎麼選</h3>
 <table class="faq">
   <tr><th style="width:22%"></th><th style="width:39%">Gemini</th><th>ChatGPT</th></tr>
   <tr><td>網址</td><td><code>gemini.google.com</code></td><td><code>chatgpt.com</code></td></tr>
   <tr><td>讀圖片／PDF</td><td>可以</td><td>可以；免費版每天上傳檔案的次數有限</td></tr>
-  <tr><td>直接寫進日曆</td><td>可以（範本 2）</td><td>不行，整理好自己貼</td></tr>
-  <tr><td>適合</td><td>本來就用 Gmail、Google 日曆的人</td><td>寫心得、改寫文字、問問題</td></tr>
+  <tr><td>直接寫進日曆</td><td>可以（寫進日曆提示詞）</td><td>不行，整理好自己貼</td></tr>
+  <tr><td>適合</td><td>本來就用 Gmail、Google 日曆的人；寫 Apps Script</td><td>寫心得、改寫文字、問問題</td></tr>
 </table>
 </div>
 
 <h3 style="margin:18px 0 4px">下提示詞的三個好習慣</h3>
 <div class="panel">
-  <ol style="margin:0;padding-left:20px">
+  <ol>
     <li><strong>不滿意就接著說，不用重來</strong>：「第二場的時間再對一次原文」「改成條列」「再短一點」，AI 會在同一段對話裡修改</li>
     <li><strong>貼全文，不要只貼網址</strong>：臉書、校內系統要登入才看得到，AI 讀不到就會亂猜</li>
     <li><strong>個資不要貼</strong>：學生名單、成績、身分證字號都別丟進去，跟使用小秘書的規矩一樣</li>
   </ol>
 </div>
 
-<!-- ================= 疑難排解 ================= -->
-<div class="part newpage"><span class="tag">附錄</span><h2>卡關了？對照這張表</h2></div>
-<p class="part-intro">表上找不到的狀況，把錯誤訊息丟給 Gemini（第 0 關範本 B），記得先刪掉裡面的鑰匙。</p>
+<!-- ================= 附錄 ================= -->
+<div class="part gray newpage" id="faq"><span class="pn">?</span><div><small>附錄</small><h2>卡關了？對照這張表</h2></div></div>
+<p class="part-intro">表上找不到的狀況，用第 0 關的<strong>求救提示詞</strong>把錯誤訊息丟給 Gemini，記得先刪掉裡面的鑰匙。</p>
 <table class="faq">
   <tr><th style="width:30%">狀況</th><th style="width:30%">最可能的原因</th><th>怎麼解</th></tr>
   <tr><td>第 6 步按執行，一直跳錯</td><td>用了學校帳號</td><td>登出，改用個人 Gmail 重做第 4 步起</td></tr>
@@ -588,17 +829,19 @@ footer{margin-top:30px;color:var(--muted);font-size:12px;border-top:1px solid va
   <tr><td>日曆上看不到研習</td><td>「研習」日曆沒勾選</td><td>Google 日曆左側「我的日曆」勾選「研習」</td></tr>
   <tr><td>時間差了 8 小時</td><td>專案時區不對</td><td>第 5 步把時區改成台北</td></tr>
   <tr><td>日期抓錯</td><td>AI 看錯了</td><td>按 ❌ 丟掉重傳；或入曆後直接在 Google 日曆改</td></tr>
+  <tr><td>進階篇改了程式，LINE 還是舊反應</td><td>沒發布新版本</td><td>管理部署作業 → 編輯 → 版本選「新版本」→ 部署</td></tr>
 </table>
 
 <h3 style="margin:22px 0 4px">使用安全三件事</h3>
 <div class="panel">
-  <ol style="margin:0;padding-left:20px">
+  <ol>
     <li><strong>含個資的內容不要傳</strong>（學生名單、身分證字號）。公告會送到 Gemini 免費方案處理，免費方案的資料可能被拿去改進模型。一般研習公告本來就是公開資訊，沒關係</li>
     <li><strong>鑰匙和門牌網址不外流</strong>：Token、API key、Web app 網址都只放在自己的專案裡</li>
     <li><strong>按 ✅ 前看一眼日期時間</strong>：這是整套流程裡最重要的一個動作</li>
   </ol>
 </div>
 
+<div class="keep">
 <h3 style="margin:22px 0 4px">為什麼可以全免費</h3>
 <table class="faq">
   <tr><th style="width:26%">角色</th><th style="width:34%">用什麼</th><th>費用</th></tr>
@@ -607,8 +850,59 @@ footer{margin-top:30px;color:var(--muted);font-size:12px;border-top:1px solid va
   <tr><td>辦公桌</td><td>Google Apps Script</td><td>個人 Gmail 免費</td></tr>
   <tr><td>記事本</td><td>Google 日曆、試算表</td><td>免費；時數從試算表計算</td></tr>
 </table>
+</div>
 
 <footer>研習小秘書 training-bot｜教師研習實作講義｜版本 2026-09-26｜範例內容皆為虛構</footer>
 </main>
+
+<script>
+(function () {
+  // 提示詞框加「複製」按鈕
+  document.querySelectorAll('.prompt').forEach(function (box) {
+    var pre = box.querySelector('pre'), head = box.querySelector('.ph');
+    if (!pre || !head) return;
+    var b = document.createElement('button');
+    b.type = 'button'; b.className = 'copy'; b.textContent = '複製';
+    b.setAttribute('aria-label', '複製這段提示詞');
+    b.addEventListener('click', function () {
+      var text = pre.innerText;
+      var done = function (msg) { b.textContent = msg; setTimeout(function () { b.textContent = '複製'; }, 2000); };
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(text).then(function () { done('已複製'); }, fallback);
+      } else { fallback(); }
+      function fallback() {
+        var r = document.createRange(); r.selectNodeContents(pre);
+        var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+        done('已選取，按 Ctrl+C');
+      }
+    });
+    head.appendChild(b);
+  });
+
+  // 目錄：標示目前捲到哪一關（最後一個標題已經捲過畫面上方 1/3 的那一關）
+  var links = {}, parts = [];
+  document.querySelectorAll('nav.toc a').forEach(function (a) { links[a.getAttribute('href').slice(1)] = a; });
+  document.querySelectorAll('.part[id]').forEach(function (p) { if (links[p.id]) parts.push(p); });
+  var current = null, ticking = false;
+  function update() {
+    ticking = false;
+    var line = window.innerHeight / 3, hit = null;
+    parts.forEach(function (p) { if (p.getBoundingClientRect().top <= line) hit = links[p.id]; });
+    if (hit === current) return;
+    if (current) current.classList.remove('on');
+    current = hit;
+    if (!current) return;
+    current.classList.add('on');
+    if (window.innerWidth < 1260) {
+      var bar = current.closest('ol');
+      bar.scrollLeft = current.parentNode.offsetLeft - 16;
+    }
+  }
+  window.addEventListener('scroll', function () {
+    if (!ticking) { ticking = true; requestAnimationFrame(update); }
+  }, { passive: true });
+  update();
+})();
+</script>
 </body>
 </html>

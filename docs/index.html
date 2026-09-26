@@ -6,6 +6,7 @@
 <meta name="color-scheme" content="light">
 <title>研習小秘書</title>
 <meta name="description" content="研習公告丟給 LINE，AI 幫你抄進 Google 日曆、開課前提醒你。教師研習實作講義與程式碼。">
+<link rel="stylesheet" href="hero.css">
 <style>
 :root{
   --bg:#ffffff; --ink:#0f172a; --muted:#475569; --line:#e2e8f0;
@@ -33,7 +34,7 @@ header.top .wrap{display:flex;align-items:center;justify-content:space-between;h
 
 /* Hero */
 .hero{background:linear-gradient(135deg,#f0fdf4 0%,#f0f9ff 100%);border-bottom:1px solid var(--line)}
-.hero .wrap{display:grid;grid-template-columns:1.25fr .75fr;gap:48px;align-items:center;padding-top:56px;padding-bottom:56px}
+.hero .wrap{display:grid;grid-template-columns:1fr minmax(0,440px);gap:40px;align-items:center;padding-top:56px;padding-bottom:56px}
 .eyebrow{display:inline-block;font-size:13px;font-weight:700;letter-spacing:.12em;color:var(--brand-deep);background:var(--brand-soft);border-radius:999px;padding:4px 12px}
 .hero h1{font-size:clamp(30px,4.6vw,46px);line-height:1.25;margin:16px 0 14px;letter-spacing:.01em}
 .hero h1 em{font-style:normal;color:var(--brand);white-space:nowrap}
@@ -47,9 +48,7 @@ header.top .wrap{display:flex;align-items:center;justify-content:space-between;h
 .btn.primary:hover{background:var(--brand-deep)}
 .btn.ghost{background:#fff;color:var(--ink);border:1.5px solid #cbd5e1}
 .btn.ghost:hover{border-color:var(--brand);color:var(--brand-deep)}
-.poster{display:block;justify-self:center;width:100%;max-width:300px;border-radius:16px;overflow:hidden;background:#fff;box-shadow:var(--shadow-hover);border:1px solid var(--line);transition:box-shadow .2s}
-.poster:hover{box-shadow:0 4px 8px rgba(15,23,42,.1),0 20px 40px rgba(15,23,42,.14)}
-.poster img{display:block;width:100%;height:auto;aspect-ratio:2160/3056}
+.hero figure.hv{margin:0 auto}
 
 /* 區塊 */
 section.block{padding:56px 0}
@@ -95,7 +94,6 @@ footer a:hover{text-decoration:underline}
 }
 @media (max-width:720px){
   .hero .wrap{grid-template-columns:1fr;gap:32px;padding-top:36px;padding-bottom:40px}
-  .poster{max-width:240px}
   .flow{grid-template-columns:1fr}
   .route{grid-template-columns:1fr;gap:14px}
   .route::before{left:22px;right:auto;top:10px;bottom:10px;width:2px;height:auto;background:linear-gradient(180deg,var(--sky),var(--brand))}
@@ -109,6 +107,40 @@ footer a:hover{text-decoration:underline}
 }
 @media (prefers-reduced-motion:reduce){
   *{transition:none!important}
+}
+
+/* 桌機版捲動動態：只在寬螢幕、且使用者沒關閉動態效果時啟用 */
+@media (min-width:900px) and (prefers-reduced-motion:no-preference){
+  /* Hero 進場：公告 → 卡片 → 箭頭 → 日曆，依序出現 */
+  .anim .hero .hv-phone{animation:rise .7s cubic-bezier(.2,.7,.2,1) both}
+  .anim .hero .hv-me{animation:pop .45s ease-out .45s both}
+  .anim .hero .hv-card{animation:pop .45s ease-out .95s both}
+  .anim .hero .hv-btns .ok{animation:pulse 1.6s ease-in-out 2.4s 2}
+  .anim .hero .hv-arrow{animation:draw .6s ease-out 1.5s both}
+  .anim .hero .hv-cal{animation:slide .6s cubic-bezier(.2,.7,.2,1) 1.8s both}
+  .anim .hero .hv-notif{animation:fade .4s ease-out 2.4s both}
+  @keyframes rise{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+  @keyframes pop{from{opacity:0;transform:translateY(10px) scale(.96)}to{opacity:1;transform:none}}
+  @keyframes slide{from{opacity:0;transform:translateX(36px)}to{opacity:1;transform:none}}
+  @keyframes fade{from{opacity:0}to{opacity:1}}
+  @keyframes draw{from{opacity:0;clip-path:inset(0 100% 0 0)}to{opacity:1;clip-path:inset(0 0 0 0)}}
+  @keyframes pulse{0%,100%{box-shadow:0 0 0 3px rgba(22,163,74,.25)}50%{box-shadow:0 0 0 8px rgba(22,163,74,.12)}}
+
+  /* 捲到才浮現 */
+  .anim .reveal{opacity:0;transform:translateY(26px);transition:opacity .6s ease,transform .6s cubic-bezier(.2,.7,.2,1);transition-delay:var(--d,0s)}
+  .anim .reveal.in{opacity:1;transform:none}
+  a.card.reveal.in{transition:opacity .6s ease,transform .6s cubic-bezier(.2,.7,.2,1),border-color .2s,box-shadow .2s}
+  a.card.in:hover{transform:translateY(-4px)}
+
+  /* 課程路線：線從左畫到右，圓點依序亮起 */
+  .anim .route::before{transform:scaleX(0);transform-origin:left;transition:transform 1.1s cubic-bezier(.4,0,.2,1) .15s}
+  .anim .route.in::before{transform:scaleX(1)}
+  .anim .route .dot{opacity:0;transform:scale(.6);transition:opacity .35s ease,transform .35s cubic-bezier(.3,1.4,.5,1);transition-delay:var(--d,0s)}
+  .anim .route.in .dot{opacity:1;transform:none}
+
+  /* 頂列捲動後加陰影 */
+  header.top{transition:box-shadow .25s}
+  header.top.scrolled{box-shadow:0 4px 16px rgba(15,23,42,.08)}
 }
 </style>
 </head>
@@ -146,9 +178,26 @@ footer a:hover{text-decoration:underline}
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>下載 PDF</a>
       </div>
     </div>
-    <a class="poster" href="poster.png" aria-label="看完整介紹海報">
-      <img src="poster.png" alt="研習小秘書介紹海報：研習公告傳給 LINE，AI 整理後寫進 Google 日曆並提醒" width="2160" height="3056">
-    </a>
+    <figure class="hv" role="img" aria-label="示意圖：老師把研習公告傳給 LINE 小秘書，小秘書回覆確認卡片，按入曆後出現在 Google 日曆並在開課前提醒">
+      <div class="hv-phone"><div class="hv-screen">
+        <div class="hv-bar"><i>研</i>研習小秘書</div>
+        <div class="hv-chat">
+          <div class="hv-me">【研習公告】資訊素養增能研習<br>10/15（三）14:00–16:00 線上，研習時數 2 小時，10/8 前報名……</div>
+          <div class="hv-card">
+            <header><small>📋 請確認研習資訊</small><b>💻 資訊素養增能研習</b></header>
+            <dl><dt>時間</dt><dd>10/15（三）14:00–16:00</dd><dt>形式</dt><dd>線上</dd><dt>截止</dt><dd>2026-10-08</dd><dt>時數</dt><dd>2</dd></dl>
+            <div class="hv-btns"><span class="ok">✅ 入曆</span><span>❌ 丟掉</span></div>
+          </div>
+        </div>
+      </div></div>
+      <svg class="hv-arrow" viewBox="0 0 64 40" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8c18 0 34 6 50 22"/><path d="M42 30h13V17"/></svg>
+      <div class="hv-cal">
+        <div class="hv-cal-h"><b>15</b><span>10 月・星期三<br>Google 日曆</span></div>
+        <div class="hv-ev"><div><strong>💻 資訊素養增能研習</strong><span>14:00–16:00・研習</span></div></div>
+        <div class="hv-ev dl"><div><strong>⏰ 報名截止</strong><span>10/8（三）全天</span></div></div>
+        <div class="hv-notif"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>開課前 30 分鐘提醒</div>
+      </div>
+    </figure>
   </div>
 </section>
 
@@ -181,7 +230,7 @@ footer a:hover{text-decoration:underline}
       <a class="card main" href="handout.html">
         <span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 4h6a4 4 0 0 1 4 4v13a3 3 0 0 0-3-3H2z"/><path d="M22 4h-6a4 4 0 0 0-4 4v13a3 3 0 0 1 3-3h7z"/></svg></span>
         <b>實作講義</b>
-        <span class="desc">第 0 關學會問 Gemini＋12 個步驟，60 分鐘架好自己的一套</span>
+        <span class="desc">12 個步驟 60 分鐘架好；進階篇教你用提示詞請 Gemini 從零生出小秘書</span>
         <em class="tag">網頁</em>
       </a>
       <a class="card" href="handout.pdf">
@@ -211,7 +260,7 @@ footer a:hover{text-decoration:underline}
     <h2>課程路線</h2>
     <p class="sub">五個關卡，每一關都有檢查點，做完就知道有沒有成功。</p>
     <ol class="route">
-      <li><span class="dot">0</span><b>學會問</b><span>請 Gemini 寫程式、救火</span><span class="t">5 分</span></li>
+      <li><span class="dot">0</span><b>學會問</b><span>開好 Gemini、學會求救</span><span class="t">5 分</span></li>
       <li><span class="dot">1</span><b>拿鑰匙</b><span>LINE 與 Gemini 各一把</span><span class="t">15 分</span></li>
       <li><span class="dot">2</span><b>搬進家具</b><span>程式放進 Apps Script</span><span class="t">15 分</span></li>
       <li><span class="dot">3</span><b>接上電話線</b><span>讓 LINE 找得到它</span><span class="t">15 分</span></li>
@@ -227,6 +276,41 @@ footer a:hover{text-decoration:underline}
     <span>原始碼：<a href="https://github.com/u8961310/training-bot">github.com/u8961310/training-bot</a></span>
   </div>
 </footer>
+
+<script>
+(function () {
+  var wide = window.matchMedia('(min-width:900px) and (prefers-reduced-motion:no-preference)');
+  if (!wide.matches || !('IntersectionObserver' in window)) return;
+  document.documentElement.classList.add('anim');
+
+  // 要浮現的元素；同一組的卡片錯開 0.1 秒
+  var groups = [['.block h2'], ['.block p.sub'], ['.flow > div', 0.1], ['.res > a', 0.08]];
+  groups.forEach(function (g) {
+    var parentSeen = new Map();
+    document.querySelectorAll(g[0]).forEach(function (el) {
+      var p = el.parentNode, i = parentSeen.get(p) || 0;
+      parentSeen.set(p, i + 1);
+      el.classList.add('reveal');
+      if (g[1]) el.style.setProperty('--d', (i * g[1]) + 's');
+    });
+  });
+  document.querySelectorAll('.route .dot').forEach(function (d, i) {
+    d.style.setProperty('--d', (0.2 + i * 0.22) + 's');
+  });
+
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.2, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal, .route').forEach(function (el) { io.observe(el); });
+
+  var top = document.querySelector('header.top');
+  window.addEventListener('scroll', function () {
+    top.classList.toggle('scrolled', window.scrollY > 8);
+  }, { passive: true });
+})();
+</script>
 
 </body>
 </html>
